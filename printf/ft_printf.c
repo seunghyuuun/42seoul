@@ -12,23 +12,50 @@
 
 #include "ft_printf.h"
 
+int	onebyte(char **str, int *result)
+{
+	int	print;
+
+	while (**str && **str != '%')
+	{
+		print = write(1, *str, 1);
+		if (print == -1)
+		{
+			*result = -1;
+			return (0);
+		}
+		*result += print;
+		(*str)++;
+	}
+	if (!(**str))
+		return (0);
+	return (1);
+}
+
 int	ft_printf(const char *str, ...)
 {
 	va_list	arg;
-	int		i;
 	int		result;
+	int		print;
+	char	*change;
 
 	va_start(arg, str);
-
 	result = 0;
-	while (str[i])
+	while (1)
 	{
-		while (str[i] && str[i] != '%')
+		if (!(onebyte(&str, &result)))
 		{
-			write(1, &str[i], 1);
-			i++;
+			va_end(arg);
+			return (result);
 		}
-		if (str[i] == '%')
-			diff += changer(&str[i], arg);
+		change = argchanger(arg, &str);
+		print = write(1, change, ft_strlen(change));
+		free(change);
+		if (print == -1)
+		{
+			va_end(arg);
+			return (-1);
+		}
+		result += print;
 	}
 }
