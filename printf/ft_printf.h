@@ -18,6 +18,8 @@
 # include <stdarg.h>
 
 int	ft_printf(const char *str, ...);
+char	*argchanger(va_list arg, char **str);
 size_t  ft_strlen(const char *s);
+int ft_isalpha(int c);
 
 #endif
