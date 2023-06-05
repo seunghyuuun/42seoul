@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-char    *optiondup(char *str)
+char    *optiondup(char *str, char *type)
 {
     char    *result;
     int     size;
@@ -10,7 +10,10 @@ char    *optiondup(char *str)
     while (str[size] && !(ft_isalpha(str[size]) || str[size] == '%'))
         size++;
     if (str[size])
+    {
+        *type = str[size];
         size++;
+    }
     result = (char *)malloc(sizeof(char) * (size + 1));
     if (!result)
         return (0);
@@ -28,8 +31,10 @@ char	*argchanger(va_list arg, char **str)
 {
     char    *change;
     char    *unchange;
+    char    type;
 
-    unchange = optiondup(*str);
+    type = 0;
+    unchange = optiondup(*str, &type);
     if (!unchange)
         return (0);
     *str += ft_strlen(unchange);
