@@ -17,9 +17,29 @@
 # include <unistd.h>
 # include <stdarg.h>
 
+typedef struct s_flag
+{
+    int hash;
+    int space;
+    int plus;
+    int minus;
+    int zero;
+    int xx;
+    int yy;
+}   t_flag;
+
 int	ft_printf(const char *str, ...);
 char	*argchanger(va_list arg, char **str);
+void    flagstore(t_flag *flag, char *unchange);
+int     ft_isflag(int c);
+
+char    *ch_char(char *unchange, int c);
+char    *ch_str(char *unchange, char *str);
+
 size_t  ft_strlen(const char *s);
-int ft_isalpha(int c);
+char    *ft_strchr(const char *s, int c);
+int     ft_isdigit(int c);
+int     ft_atoi(const char *str);
+void    *ft_memset(void *b, int c, size_t len);
 
 #endif

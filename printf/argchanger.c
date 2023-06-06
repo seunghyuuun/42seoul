@@ -7,20 +7,20 @@ char    *optiondup(char *str, char *type)
     int     i;
 
     size = 1;
-    while (str[size] && !(ft_isalpha(str[size]) || str[size] == '%'))
+    while (str[size] && ft_isflag(str[size]))
         size++;
     if (str[size])
     {
         *type = str[size];
         size++;
     }
-    result = (char *)malloc(sizeof(char) * (size + 1));
+    result = (char *)malloc(sizeof(char) * (size));
     if (!result)
         return (0);
     i = 0;
-    while (i < size)
+    while (i + 1 < size)
     {
-        result[i] = str[i];
+        result[i] = str[i + 1];
         i++;
     }
     result[i] = '\0';
@@ -37,5 +37,10 @@ char	*argchanger(va_list arg, char **str)
     unchange = optiondup(*str, &type);
     if (!unchange)
         return (0);
-    *str += ft_strlen(unchange);
+    *str += ft_strlen(unchange) + 1;
+    if (type == 'c')
+        change = ch_char(unchange, va_arg(arg, int));
+    else if (type == 's')
+        change = ch_str(unchange, va_arg(arg, char*));
+    return (change);
 }

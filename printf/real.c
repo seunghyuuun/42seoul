@@ -87,11 +87,6 @@ int	main(void)
 
 	printf("\n");
 
-	int u = 11;
-	printf("%u\n", u);
-
-	printf("\n");
-
 	int yy = 1111111;
 	printf("%.10d\n", yy);
 	printf("%.10x\n", yy);
@@ -107,7 +102,57 @@ int	main(void)
 
 	printf("\n");
 
+// 앞에부터
 	printf("%d %d", order(), order());
+
+	printf("\n");
+
+// c
+	printf(": 10c(%d)\n", printf("%10c", 'x'));
+	printf(": -10c(%d)\n", printf("%-10c", 'x'));
+	printf(": 010c(%d)\n", printf("%010c", 'x'));
+	printf(": 10.3c(%d)\n", printf("%10.3c", 'x'));
+	printf(": 10.03c(%d)\n", printf("%10.03c", 'x'));
+	printf(": 010.3c(%d)\n", printf("%010.3c", 'x'));
+	printf(": 10..3c(%d)\n", printf("%10..3c", 'x'));
+	printf(": 10.3.c(%d)\n", printf("%10.3.c", 'x'));
+	printf(": 10.3.5c(%d)\n", printf("%10.3.5c", 'x'));
+	printf(": 10.03.5c(%d)\n", printf("%10.03.5c", 'x'));
+	printf(": 10.3>c(%d)\n", printf("%10.3>c", 'x'));
+	printf(": 10.3-c(%d)\n", printf("%10.3-c", 'x'));
+	printf(": 10.-3c(%d)\n", printf("%10.-3c", 'x'));
+	printf(": 10.>3c(%d)\n", printf("%10.>3c", 'x'));
+	printf(": 10>c(%d)\n", printf("%10>c", 'x'));
+	printf(": -10>c(%d)\n", printf("%-10>c", 'x'));
+	printf(": 10-c(%d)\n", printf("%10-c", 'x'));
+	printf(": 010c(%d)\n", printf("%010c", 'x'));
+	printf(": 0-10c(%d)\n", printf("%0-10c", 'x'));
+
+	printf("\n");
+
+// . 뒤에 다른 flag 오는 경우
+	char *df = "Hello World!";
+	printf(": 10.5s(%d)\n", printf("%10.5s", df));
+	printf(": 10.5.7s(%d)\n", printf("%10.5.7s", df));
+	printf(": 10..5s(%d)\n", printf("%10..5s", df));
+	printf(": 10.5.s(%d)\n", printf("%10.5.s", df));
+	printf(": 10.-5s(%d)\n", printf("%10.-5s", df));
+	printf(": 10.05s(%d)\n", printf("%10.05s", df));
+	printf(": 010.5s(%d)\n", printf("%010.5s", df));
+	int idf = 333333;
+	printf(": 15.10d(%d)\n", printf("%15.10d", idf));
+	printf(": 15.10.8d(%d)\n", printf("%15.10.8d", idf));
+	printf(": 15.+10d(%d)\n", printf("%15.+10d", idf));
+	printf(": 15.10+d(%d)\n", printf("%15.10+d", idf));
+	printf(": 15.010d(%d)\n", printf("%15.010d", idf));
+	printf(": 15.-10d(%d)\n", printf("%15.-10d", idf));
+	printf(": 15. 10d(%d)\n", printf("%15. 10d", idf));
+
+	printf("\n");
+
+// 순서 상관없다. 모든 플래그는 후에 나온 것을 적용한다.
+	printf(": 10.5-12s(%d)\n", printf("%10.5-12s", df));
+	printf(": 15.10+20d(%d)\n", printf("%15.10+20d", idf));
 
 	return (0);
 }
