@@ -41,5 +41,6 @@ char    *ft_strchr(const char *s, int c);
 int     ft_isdigit(int c);
 int     ft_atoi(const char *str);
 void    *ft_memset(void *b, int c, size_t len);
+void    *ft_memcpy(void *dst, const void *src, size_t n);
 
 #endif
