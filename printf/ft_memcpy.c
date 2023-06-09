@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point.c                                            :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 13:32:01 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/07 15:33:02 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/06/07 20:30:20 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/07 20:30:27 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ch_pnt(char *unchange, void *addr)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char	*change;
-	t_flag	flag;
+	unsigned char	*temp;
+	unsigned char	*source;
 
-	flagstore(&flag, unchange);
-	change = yeshash(flag, (unsigned long)addr);
-	return (change);
+	if (dst == src || !n)
+		return (dst);
+	temp = (unsigned char *)dst;
+	source = (unsigned char *)src;
+	while (n)
+	{
+		*temp = *source;
+		temp++;
+		source++;
+		n--;
+	}
+	return (dst);
 }

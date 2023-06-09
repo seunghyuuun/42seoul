@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point.c                                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 13:32:01 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/07 15:33:02 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/06/07 20:29:46 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/07 20:29:56 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ch_pnt(char *unchange, void *addr)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	char	*change;
-	t_flag	flag;
+	size_t	i;
 
-	flagstore(&flag, unchange);
-	change = yeshash(flag, (unsigned long)addr);
-	return (change);
+	i = 0;
+	while (i < len)
+	{
+		((unsigned char *)b)[i] = (unsigned char)c;
+		i++;
+	}
+	return (b);
 }

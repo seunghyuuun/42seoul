@@ -1,66 +1,78 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flag.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/07 13:11:05 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/07 13:13:53 by seunghy2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int ft_isflag(int c)
+int	ft_isflag(int c)
 {
-    if (ft_isdigit(c))
-        return (1);
-    if (ft_strchr("# +-.", c))
-        return (1);
-    return (0);
+	if (ft_isdigit(c))
+		return (1);
+	if (ft_strchr("# +-.", c))
+		return (1);
+	return (0);
 }
 
-void    initialflag(t_flag *flag)
+void	initialflag(t_flag *flag)
 {
-    flag->hash = 0;
-    flag->space = 0;
-    flag->plus = 0;
-    flag->minus = 0;
-    flag->zero = 0;
-    flag->xx = -1;
-    flag->yy = -1;
+	flag->hash = 0;
+	flag->space = 0;
+	flag->plus = 0;
+	flag->minus = 0;
+	flag->zero = 0;
+	flag->xx = -1;
+	flag->yy = -1;
 }
 
-int atoijump(char *start, int *jump)
+int	atoijump(char *start, int *jump)
 {
-    int i;
-    int result;
+	int	i;
+	int	result;
 
-    i = 0;
-    if (start[i] == '.')
-        i++;
-    if (start[i] == ' ' || start[i] == '+' || start[i] == '-')
-        return (0);
-    result = ft_atoi(&(start[i]));
-    while (ft_isdigit(start[i]))
-        i++;
-    *jump = i;
-    return (result);
+	i = 0;
+	if (start[i] == '.')
+		i++;
+	if (start[i] == ' ' || start[i] == '+' || start[i] == '-')
+		return (0);
+	result = ft_atoi(&(start[i]));
+	while (ft_isdigit(start[i]))
+		i++;
+	*jump = i;
+	return (result);
 }
 
-void    flagstore(t_flag *flag, char *unchange)
+void	flagstore(t_flag *flag, char *unchange)
 {
-    int i;
-    int jump;
+	int	i;
+	int	jump;
 
-    i = 0;
-    initialflag(flag);
-    while (unchange[i])
-    {
-        jump = 1;
-        if (unchange[i] == '#')
-            flag->hash = 1;
-        else if (unchange[i] == ' ')
-            flag->space = 1;
-        else if (unchange[i] == '+')
-            flag->plus = 1;
-        else if (unchange[i] == '-')
-            flag->minus = 1;
-        else if (unchange[i] == '0')
-            flag->zero = 1;
-        else if (ft_isdigit(unchange[i]))
-            flag->xx = atoijump(&(unchange[i]), &jump);
-        else if (unchange[i] == '.')
-            flag->yy = atoijump(&(unchange[i]), &jump);
-        i += jump;
-    }
+	i = 0;
+	initialflag(flag);
+	while (unchange[i])
+	{
+		jump = 1;
+		if (unchange[i] == '#')
+			flag->hash = 1;
+		else if (unchange[i] == ' ')
+			flag->space = 1;
+		else if (unchange[i] == '+')
+			flag->plus = 1;
+		else if (unchange[i] == '-')
+			flag->minus = 1;
+		else if (unchange[i] == '0')
+			flag->zero = 1;
+		else if (ft_isdigit(unchange[i]))
+			flag->xx = atoijump(&(unchange[i]), &jump);
+		else if (unchange[i] == '.')
+			flag->yy = atoijump(&(unchange[i]), &jump);
+		i += jump;
+	}
 }

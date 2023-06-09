@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point.c                                            :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 13:32:01 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/07 15:33:02 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/06/07 20:28:22 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/07 20:28:33 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-char	*ch_pnt(char *unchange, void *addr)
+char	*ft_strchr(const char *s, int c)
 {
-	char	*change;
-	t_flag	flag;
+	char	tofind;
+	char	*temp;
 
-	flagstore(&flag, unchange);
-	change = yeshash(flag, (unsigned long)addr);
-	return (change);
+	tofind = (char)c;
+	temp = (char *)s;
+	while (*temp)
+	{
+		if (*temp == tofind)
+			return (temp);
+		temp++;
+	}
+	if (!tofind)
+		return (temp);
+	return (0);
 }

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point.c                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 13:32:01 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/07 15:33:02 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/06/07 20:28:02 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/07 20:28:05 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ch_pnt(char *unchange, void *addr)
+size_t	ft_strlen(const char *s)
 {
-	char	*change;
-	t_flag	flag;
+	size_t	i;
 
-	flagstore(&flag, unchange);
-	change = yeshash(flag, (unsigned long)addr);
-	return (change);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
