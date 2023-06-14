@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 17:46:39 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/14 18:04:49 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:38:11 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ int	ft_printf(const char *str, ...)
 		}
 		change = argchanger(arg, &str, &charnul);
 		print = write(1, change, imax(ft_strlen(change), &charnul));
+		free(change);
 		if (print == -1)
 		{
 			va_end(arg);
 			return (-1);
 		}
-		free(change);
 		result += print;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:19:36 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/09 18:35:51 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:36:36 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,18 @@ char	*ch_int(char *unchange, int n)
 
 	flagstore(&flag, unchange);
 	number = ft_itoa(n);
+	if (!number)
+		return (0);
 	xysize[1] = ft_strlen(number);
 	if (n < 0)
 		xysize[1]--;
 	ch_xysize(flag, &xysize, n);
 	change = (char *)malloc(sizeof(char) * (xysize[0] + 1));
 	if (!change)
+	{
+		free(number);
 		return (0);
+	}
 	change[xysize[0]] = '\0';
 	ft_memset((void *)change, ' ', xysize[0]);
 	changesetting(change, flag, xysize, number);
