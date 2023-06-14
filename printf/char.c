@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 13:09:34 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/09 13:53:39 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:05:31 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ char	*ch_char(char *unchange, int c, int *charnul, int ischar)
 
 	flagstore(&flag, unchange);
 	size = 1;
-	if (ischar && !c)
-		*charnul = 1;
 	if (flag.xx > 1)
 		size = (size_t)flag.xx;
 	if (!ischar && !c)
@@ -30,10 +28,12 @@ char	*ch_char(char *unchange, int c, int *charnul, int ischar)
 	if (!change)
 		return (0);
 	change[size] = '\0';
+	if (ischar && !c)
+		*charnul = size;
 	ft_memset((void *)change, ' ', size);
 	if (!(flag.minus) && flag.zero)
 		ft_memset((void *)change, '0', size);
-	if ((flag.minus && c) || !size)
+	if (flag.minus || !size)
 		change[0] = c;
 	else
 		change[size - 1] = c;

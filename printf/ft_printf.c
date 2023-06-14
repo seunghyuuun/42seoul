@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 17:46:39 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/09 13:49:13 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:04:49 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,18 @@ int	onebyte(const char **str, int *result)
 	return (1);
 }
 
-int	imax(int a, int *charnul)
+int	imax(size_t a, int *charnul)
 {
+	int	result;
+
 	if (*charnul)
 	{
+		result = *charnul;
 		*charnul = 0;
-		return (a + 1);
+		return (result);
 	}
-	return (a);
+	result = (int)a;
+	return (result);
 }
 
 void	initializer(int *a, int *b)
@@ -66,13 +70,13 @@ int	ft_printf(const char *str, ...)
 			return (result);
 		}
 		change = argchanger(arg, &str, &charnul);
-		print = write(1, change, ft_strlen(change));
+		print = write(1, change, imax(ft_strlen(change), &charnul));
 		if (print == -1)
 		{
 			va_end(arg);
 			return (-1);
 		}
 		free(change);
-		result += imax(print, &charnul);
+		result += print;
 	}
 }
