@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 char	**ft_split(char const *s, char c);
-void	threedfree(char ***s, int index);
+void	threedfree(char ***s);
 
 char	***cmdmkr(int argc, char **argv)
 {
@@ -19,7 +19,7 @@ char	***cmdmkr(int argc, char **argv)
 		result[i] = ft_split(argv[i + 2], ' ');
 		if (!result[i])
 		{
-			threedfree(result, i);
+			threedfree(result);
 			return (0);
 		}
 		i++;

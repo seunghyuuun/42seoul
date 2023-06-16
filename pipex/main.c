@@ -11,8 +11,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	***cmd;
 	char	**cmdpath;
-	int		i;
-	pid_t	pid;
 
 	if (argc < 5)
 	{
@@ -32,14 +30,6 @@ int	main(int argc, char **argv, char **envp)
 		printf("alloc fail\n");
 		return (-1);
 	}
-	//argc==5 가정하고 하기
-	i = 0;
-	while (i < argc - 3)
-	{
-		pid = fork();
-		if (pid == 0)
-			ft_exec(cmd, 
-		i++;
-	}
+	
 	return (0);
 }

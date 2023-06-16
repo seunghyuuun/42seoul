@@ -14,12 +14,12 @@ void	twodfree(char **s)
 	free(s);
 }
 
-void	threedfree(char ***s, int index)
+void	threedfree(char ***s)
 {
 	int	i;
 
 	i = 0;
-	while (i < index)
+	while (s[i])
 	{
 		twodfree(s[i]);
 		i++;
