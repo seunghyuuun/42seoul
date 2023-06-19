@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/13 12:18:09 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/21 16:33:56 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	twodfree(char **s)
+int	ft_isalnum(int c)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-}
-
-void	threedfree(char ***s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		twodfree(s[i]);
-		i++;
-	}
-	free(s);
+	if (c < '0')
+		return (0);
+	else if (c > '9' && c < 'A')
+		return (0);
+	else if (c > 'Z' && c < 'a')
+		return (0);
+	else if (c > 'z')
+		return (0);
+	return (1);
 }

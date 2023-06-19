@@ -1,39 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/13 12:26:16 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/21 16:36:25 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	twodfree(char **s)
+int	ft_isascii(int c)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-}
-
-void	threedfree(char ***s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		twodfree(s[i]);
-		i++;
-	}
-	free(s);
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }

@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/13 17:00:17 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/24 12:39:06 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	twodfree(char **s)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	int	i;
+	unsigned char	*idst;
+	unsigned char	*isrc;
+	size_t			i;
 
-	i = 0;
-	while (s[i])
+	if (dst == src || !len)
+		return (dst);
+	idst = (unsigned char *)dst;
+	isrc = (unsigned char *)src;
+	if (isrc + len > idst && idst > isrc)
 	{
-		free(s[i]);
-		i++;
+		while (--len)
+			idst[len] = isrc[len];
+		idst[len] = isrc[len];
 	}
-	free(s);
-}
-
-void	threedfree(char ***s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
+	else
 	{
-		twodfree(s[i]);
-		i++;
+		i = -1;
+		while (++i < len)
+			idst[i] = isrc[i];
 	}
-	free(s);
+	return (dst);
 }

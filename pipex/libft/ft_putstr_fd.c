@@ -1,39 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/17 15:30:00 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/17 15:32:14 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	twodfree(char **s)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
+	size_t	len;
 
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-}
-
-void	threedfree(char ***s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		twodfree(s[i]);
-		i++;
-	}
-	free(s);
+	len = ft_strlen(s);
+	write(fd, s, len);
 }

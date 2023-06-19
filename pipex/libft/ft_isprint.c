@@ -1,39 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/13 12:31:46 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/13 12:36:36 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	twodfree(char **s)
+int	ft_isprint(int c)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-}
-
-void	threedfree(char ***s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		twodfree(s[i]);
-		i++;
-	}
-	free(s);
+	if (c > 31 && c < 127)
+		return (1);
+	return (0);
 }

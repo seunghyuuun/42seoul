@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 13:14:53 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/17 16:05:46 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	twodfree(char **s)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	char	tofind;
+	char	*temp;
 
-	i = 0;
-	while (s[i])
+	tofind = (char)c;
+	temp = (char *)s;
+	while (*temp)
 	{
-		free(s[i]);
-		i++;
+		if (*temp == tofind)
+			return (temp);
+		temp++;
 	}
-	free(s);
-}
-
-void	threedfree(char ***s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		twodfree(s[i]);
-		i++;
-	}
-	free(s);
+	if (!tofind)
+		return (temp);
+	return (0);
 }

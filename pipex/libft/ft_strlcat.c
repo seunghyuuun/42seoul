@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 12:08:12 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/16 12:25:23 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	twodfree(char **s)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
+	size_t	dstlen;
 
 	i = 0;
-	while (s[i])
+	j = 0;
+	while (dst[j] != 0)
+		j++;
+	dstlen = j;
+	while (src[i] != 0 && j + 1 < dstsize)
 	{
-		free(s[i]);
+		dst[j] = src[i];
+		j++;
 		i++;
 	}
-	free(s);
-}
-
-void	threedfree(char ***s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
+	dst[j] = 0;
+	while (src[i])
 	{
-		twodfree(s[i]);
+		j++;
 		i++;
 	}
-	free(s);
+	if (dstlen > dstsize)
+		return (i + dstsize);
+	return (j);
 }

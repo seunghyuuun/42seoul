@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 21:27:16 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/21 16:49:15 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	twodfree(char **s)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int	i;
+	size_t	len;
+	size_t	i;
+	char	*result;
+	size_t	j;
 
 	i = 0;
-	while (s[i])
+	len = ft_strlen(s1) + ft_strlen(s2);
+	result = (char *)malloc(len + 1);
+	if (!result)
+		return (0);
+	while (s1[i])
 	{
-		free(s[i]);
+		result[i] = s1[i];
 		i++;
 	}
-	free(s);
-}
-
-void	threedfree(char ***s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
+	j = 0;
+	while (s2[j])
 	{
-		twodfree(s[i]);
+		result[i] = s2[j];
 		i++;
+		j++;
 	}
-	free(s);
+	result[i] = 0;
+	return (result);
 }

@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/13 15:18:06 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/24 12:39:19 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	twodfree(char **s)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	int	i;
+	unsigned char	*temp;
+	unsigned char	*source;
 
-	i = 0;
-	while (s[i])
+	if (dst == src || !n)
+		return (dst);
+	temp = (unsigned char *)dst;
+	source = (unsigned char *)src;
+	while (n)
 	{
-		free(s[i]);
-		i++;
+		*temp = *source;
+		temp++;
+		source++;
+		n--;
 	}
-	free(s);
-}
-
-void	threedfree(char ***s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		twodfree(s[i]);
-		i++;
-	}
-	free(s);
+	return (dst);
 }

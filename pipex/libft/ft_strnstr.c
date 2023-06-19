@@ -1,36 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmdmkr.c                                           :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:24 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 15:13:54 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/16 15:38:04 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	***cmdmkr(int argc, char **argv)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	char	***result;
-	int		i;
+	size_t	i;
+	size_t	j;
 
-	result = (char ***)malloc(sizeof(char **) * (argc - 3 + 1));
-	if (!result)
-		return (0);
-	result[argc - 3] = (char **)0;
 	i = 0;
-	while (i < argc - 3)
+	j = 0;
+	if (needle[0] == 0)
+		return ((char *)haystack);
+	while (haystack[i] != 0 && i < len)
 	{
-		result[i] = ft_split(argv[i + 2], ' ');
-		if (!result[i])
+		if (haystack[i] == needle[j])
 		{
-			threedfree(result);
-			return (0);
+			while (needle[j] != 0 && haystack[i] == needle[j] && i < len)
+			{
+				i++;
+				j++;
+			}
+			i = i - j;
+			if (needle[j] == 0)
+				return (&((char *)haystack)[i]);
+			j = 0;
 		}
 		i++;
 	}
-	return (result);
+	return (0);
 }

@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 15:48:42 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/16 20:47:48 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	twodfree(char **s)
+char	*ft_strdup(const char *s1)
 {
-	int	i;
+	char	*result;
+	int		i;
 
 	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
+	while (s1[i])
 		i++;
-	}
-	free(s);
-}
-
-void	threedfree(char ***s)
-{
-	int	i;
-
+	result = (char *)malloc(sizeof(char) * (i + 1));
+	if (result == NULL)
+		return (0);
 	i = 0;
-	while (s[i])
+	while (s1[i])
 	{
-		twodfree(s[i]);
+		result[i] = s1[i];
 		i++;
 	}
-	free(s);
+	result[i] = 0;
+	return (result);
 }

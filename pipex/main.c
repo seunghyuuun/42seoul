@@ -1,41 +1,42 @@
-//#include "pipe.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/19 12:11:19 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/19 17:22:32 by seunghy2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char	***cmdmkr(int argc, char **argv);
-char	**pathmkr(char ***cmd, char **envp);
-//int	ft_printf(const char *str, ...);
+#include "pipex.h"
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	***cmd;
-	char	**cmdpath;
-	int inout[2];
-	pid_t pid;
+	t_piparg	arg;
 
 	if (argc < 5)
 	{
-		//ft_printf("more argv\n");
-		printf("more argv\n");
+		ft_printf("more argv\n");
 		return (-1);
 	}
-	cmd = cmdmkr(argc, argv);
-	if (!cmd)
+	arg.cmd = cmdmkr(argc, argv);
+	if (!arg.cmd)
 	{
-		printf("alloc fail\n");
+		ft_printf("alloc fail\n");
 		return (-1);
 	}
-	cmdpath = pathmkr(cmd, envp);
-	if (!cmdpath)
+	arg.cmdpath = pathmkr(arg.cmd, envp);
+	if (!arg.cmdpath)
 	{
-		printf("alloc fail\n");
+		ft_printf("alloc fail\n");
 		return (-1);
 	}
-	inout[0] = open(argv[1], O_RDWR);
-	inout[1] = open(argv[argc - 1], O_RDWR);
-	pid = fork();
-	if (!pid)
-		piping(cmd, cmdpath, envp, inout, 0);
+	arg.inout[0] = open(argv[1], O_RDWR);
+	arg.inout[1] = open(argv[argc - 1], O_RDWR);
+	piping(&arg, envp, argc - 3);
+	threedfree(arg.cmd);
+	twodfree(arg.cmdpath);
 	return (0);
 }

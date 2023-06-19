@@ -1,28 +1,16 @@
-TERM_SESSION_ID=w0t0p0:493C1400-26E7-4AEE-B235-C501B04D8BE3
-SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.ZCFY3H01cE/Listeners
-LC_TERMINAL_VERSION=3.4.19
-COLORFGBG=7;0
-ITERM_PROFILE=Default
-XPC_FLAGS=0x0
-PWD=/Users/seunghy2/Desktop/pipex
-SHELL=/bin/zsh
-SECURITYSESSIONID=18720
-LC_CTYPE=UTF-8
-TERM_PROGRAM_VERSION=3.4.19
-TERM_PROGRAM=iTerm.app
-PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
-LC_TERMINAL=iTerm2
-COLORTERM=truecolor
-COMMAND_MODE=unix2003
-TERM=xterm-256color
-HOME=/Users/seunghy2
-TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n000cy9r0037kf/T/
-USER=seunghy2
-XPC_SERVICE_NAME=0
-LOGNAME=seunghy2
-LaunchInstanceID=414B98F1-51E4-4F69-85A0-CF1456F7B86D
-ITERM_SESSION_ID=w0t0p0:493C1400-26E7-4AEE-B235-C501B04D8BE3
-__CF_USER_TEXT_ENCODING=0x0:0:0
-SHLVL=1
-OLDPWD=/Users/seunghy2/Desktop/pipex/exec
-_=/usr/bin/env
+total 192
+drwxr-xr-x  15 seunghy2  2023_seoul    510 Jun 19 17:49 .
+drwxr-xr-x   7 seunghy2  2023_seoul    238 Jun 19 12:08 ..
+-rw-r--r--@  1 seunghy2  2023_seoul   8196 Jun 19 12:16 .DS_Store
+drwxr-xr-x   9 seunghy2  2023_seoul    306 Jun 19 12:09 .git
+-rwxr-xr-x   1 seunghy2  2023_seoul  52264 Jun 19 17:49 a.out
+-rw-r--r--   1 seunghy2  2023_seoul     24 Jun 19 12:30 aaa.txt
+-rw-r--r--   1 seunghy2  2023_seoul    947 Jun 19 17:42 bbb.txt
+-rw-r--r--@  1 seunghy2  2023_seoul   1270 Jun 19 12:29 cmdmkr.c
+-rw-r--r--@  1 seunghy2  2023_seoul   1922 Jun 19 17:49 ex.c
+-rw-r--r--@  1 seunghy2  2023_seoul   1112 Jun 19 12:29 free.c
+drwxr-xr-x  95 seunghy2  2023_seoul   3230 Jun 19 15:19 libft
+-rw-r--r--@  1 seunghy2  2023_seoul   1420 Jun 19 17:22 main.c
+-rw-r--r--@  1 seunghy2  2023_seoul   2202 Jun 19 12:14 pathmkr.c
+-rw-r--r--@  1 seunghy2  2023_seoul   1523 Jun 19 16:30 pipex.h
+drwxr-xr-x   3 seunghy2  2023_seoul    102 Jun 19 15:43 ps
