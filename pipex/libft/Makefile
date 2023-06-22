@@ -6,11 +6,11 @@
 #    By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 11:45:20 by seunghy2          #+#    #+#              #
-#    Updated: 2023/06/19 11:52:22 by seunghy2         ###   ########.fr        #
+#    Updated: 2023/06/19 19:01:10 by seunghy2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC=gcc
+CC=cc
 CFLAGS=-Wall -Wextra -Werror
 AR=ar
 ARFLAGS=rcs

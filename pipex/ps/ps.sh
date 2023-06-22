@@ -2,7 +2,7 @@
 
 number=0
 
-while [ $number -le 30 ]
+while [ $number -le 10 ]
 do
 	ps -l
 	sleep 1

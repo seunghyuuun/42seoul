@@ -6,17 +6,26 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:12:12 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:14:52 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:56:05 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**envpath(char **envp)
+void	erasepath(char **path, char **cmdpath, t_piparg *arg, char *str)
+{
+	if (path)
+		twodfree(path);
+	if (cmdpath)
+		twodfree(cmdpath);
+	threedfree(arg->cmd);
+	manualerror(arg, str);
+}
+
+char	**envextract(char **envp)
 {
 	int		i;
 	char	**result;
-	char	*temp;
 
 	i = 0;
 	while (envp[i])
@@ -26,6 +35,16 @@ char	**envpath(char **envp)
 		i++;
 	}
 	result = ft_split(envp[i] + ft_strlen("PATH="), ':');
+	return (result);
+}
+
+char	**envpath(char **envp)
+{
+	int		i;
+	char	**result;
+	char	*temp;
+
+	result = envextract(envp);
 	if (!result)
 		return (0);
 	i = 0;
@@ -44,31 +63,35 @@ char	**envpath(char **envp)
 	return (result);
 }
 
-char	*pathok(char **path, char *cmd)
+void	pathok(char **path, t_piparg *arg, char **result, int index)
 {
-	char	*result;
 	int		i;
+	char	*ccmd;
 
 	i = 0;
-	if (access(cmd, X_OK) == 0)
-	{
-		result = ft_strdup(cmd);
-		return (result);
-	}
-	result = 0;
+	ccmd = arg->cmd[index][0];
+	result[index] = 0;
 	while (path[i])
 	{
-		result = ft_strjoin(path[i], cmd);
-		if (access(result, X_OK) == 0)
-			return (result);
-		free(result);
-		result = 0;
+		result[index] = ft_strjoin(path[i], ccmd);
+		if (!result[index])
+			erasepath(path, result, arg, "alloc fail\n");
+		else if (access(result[index], X_OK) == 0)
+			return ;
+		free(result[index]);
+		result[index] = 0;
 		i++;
 	}
-	return (result);
+	if (!result[index] && ft_strchr(ccmd, '/') \
+			&& access(ccmd, X_OK) == 0)
+		result[index] = ft_strdup(ccmd);
+	else if (!result[index])
+		erasepath(path, result, arg, "command not found\n");
+	if (!result[index])
+		erasepath(path, result, arg, "alloc fail\n");
 }
 
-char	**pathmkr(char ***cmd, char **envp)
+char	**pathmkr(t_piparg *arg, char **envp)
 {
 	char	**result;
 	int		i;
@@ -79,25 +102,19 @@ char	**pathmkr(char ***cmd, char **envp)
 	i = 0;
 	path = envpath(envp);
 	if (!path)
-		return (0);
-	while (cmd[size])
+		erasepath(0, 0, arg, "alloc fail\n");
+	while (arg->cmd[size])
 		size++;
 	result = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!result)
-	{
-		twodfree(path);
-		return (0);
-	}
+		erasepath(path, 0, arg, "alloc fail\n");
 	result[size] = 0;
 	while (i < size)
 	{
-		result[i] = pathok(path, cmd[i][0]);
+		pathok(path, arg, result, i);
+		ft_printf("%s\n", result[i]);
 		if (!result[i])
-		{
-			twodfree(result);
-			result = 0;
-			break ;
-		}
+			erasepath(path, result, arg, "alloc fail\n");
 		i++;
 	}
 	twodfree(path);

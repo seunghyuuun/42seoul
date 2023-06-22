@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/19 12:29:12 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:23:26 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,13 @@ void	threedfree(char ***s)
 		i++;
 	}
 	free(s);
+}
+
+void	erasearg(t_piparg *arg, char *str)
+{
+	threedfree(arg->cmd);
+	twodfree(arg->cmdpath);
+	if (arg->pdarr)
+		free(arg->pdarr);
+	manualerror(arg, str);
 }
