@@ -12,14 +12,14 @@
 
 #include "pipex.h"
 
-char	***cmdmkr(int argc, char **argv, t_piparg *arg)
+char	***cmdmkr(int argc, char **argv)
 {
 	char	***result;
 	int		i;
 
 	result = (char ***)malloc(sizeof(char **) * (argc - 3 + 1));
 	if (!result)
-		manualerror(arg, "alloc fail\n");
+		manualerror("alloc fail\n");
 	result[argc - 3] = (char **)0;
 	i = 0;
 	while (i < argc - 3)
@@ -28,7 +28,7 @@ char	***cmdmkr(int argc, char **argv, t_piparg *arg)
 		if (!result[i])
 		{
 			threedfree(result);
-			manualerror(arg, "alloc fail\n");
+			manualerror("alloc fail\n");
 		}
 		i++;
 	}

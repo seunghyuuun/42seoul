@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:12:12 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/22 15:56:05 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/24 16:28:51 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	erasepath(char **path, char **cmdpath, t_piparg *arg, char *str)
 	if (cmdpath)
 		twodfree(cmdpath);
 	threedfree(arg->cmd);
-	manualerror(arg, str);
+	manualerror(str);
 }
 
 char	**envextract(char **envp)
@@ -82,13 +82,8 @@ void	pathok(char **path, t_piparg *arg, char **result, int index)
 		result[index] = 0;
 		i++;
 	}
-	if (!result[index] && ft_strchr(ccmd, '/') \
-			&& access(ccmd, X_OK) == 0)
-		result[index] = ft_strdup(ccmd);
-	else if (!result[index])
-		erasepath(path, result, arg, "command not found\n");
 	if (!result[index])
-		erasepath(path, result, arg, "alloc fail\n");
+		erasepath(path, result, arg, "command not found\n");
 }
 
 char	**pathmkr(t_piparg *arg, char **envp)
@@ -112,7 +107,6 @@ char	**pathmkr(t_piparg *arg, char **envp)
 	while (i < size)
 	{
 		pathok(path, arg, result, i);
-		ft_printf("%s\n", result[i]);
 		if (!result[i])
 			erasepath(path, result, arg, "alloc fail\n");
 		i++;

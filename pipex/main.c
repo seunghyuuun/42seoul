@@ -17,15 +17,11 @@ int	main(int argc, char **argv, char **envp)
 	t_piparg	arg;
 
 	if (argc < 5)
-		manualerror(&arg, "more argv\n");
-	arg.envp = envp;
-	arg.inout[0] = open(argv[1], O_RDWR);
-	arg.inout[1] = open(argv[argc - 1], O_RDWR);
-	arg.cmd = cmdmkr(argc, argv, &arg);
+		manualerror("more argv\n");
+	arg.inout[0] = open(argv[1], O_RDONLY);
+	arg.inout[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	arg.cmd = cmdmkr(argc, argv);
 	arg.cmdpath = pathmkr(&arg, envp);
-	arg.pdarr = (pid_t *)malloc(sizeof(pid_t) * (argc - 3));
-	if (!arg.pdarr)
-		erasearg(&arg, "alloc fail\n");
 	piping(&arg, envp, argc - 3);
 	threedfree(arg.cmd);
 	twodfree(arg.cmdpath);

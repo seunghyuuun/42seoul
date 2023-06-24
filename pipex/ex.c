@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:11:34 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/22 14:34:16 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:48:40 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	realex(t_piparg *arg, char **envp, int i, int fdout)
 	size = 0;
 	while (arg->cmd[size])
 		size++;
-	if (i == size -1)
+	if (i == size - 1)
 		outwrite = arg->inout[1];
 	else
 		outwrite = fdout;
@@ -32,30 +32,13 @@ void	realex(t_piparg *arg, char **envp, int i, int fdout)
 		erasearg(arg, "errno");
 }
 
-void	waiting(pid_t *pdarr, pid_t pid, int size)
+void	waiting(void)
 {
-	int	i;
-	int	pidend;
-	int	repeat;
+	pid_t	pid;
 
-	pdarr[size - 1] = pid;
-	while (1)
-	{
-		i = 0;
-		repeat = 0;
-		while (i < size)
-		{
-			if (pdarr[i])
-				pidend = waitpid(pdarr[i], NULL, WNOHANG);
-			if (pidend)
-				pdarr[i] = 0;
-			if (pdarr[i])
-				repeat++;
-			i++;
-		}
-		if (!repeat)
-			break ;
-	}
+	pid = 1;
+	while (pid != -1)
+		pid = waitpid(0, 0, WNOHANG);
 }
 
 void	piping(t_piparg *arg, char **envp, int size)
@@ -75,7 +58,6 @@ void	piping(t_piparg *arg, char **envp, int size)
 		close(arg->inout[0]);
 		close(fd[1]);
 		arg->inout[0] = fd[0];
-		arg->pdarr[i] = pid;
 		i++;
 		if (pipe(fd) == -1)
 			erasearg(arg, "errno");
@@ -84,5 +66,6 @@ void	piping(t_piparg *arg, char **envp, int size)
 	close(fd[0]);
 	if (!pid)
 		realex(arg, envp, i, fd[1]);
-	waiting(arg->pdarr, pid, size);
+	close(arg->inout[0]);
+	waiting();
 }

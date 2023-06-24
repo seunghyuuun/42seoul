@@ -24,16 +24,13 @@ typedef struct s_piparg
 	char	***cmd;
 	char	**cmdpath;
 	int		inout[2];
-	pid_t	*pdarr;
-	char	**envp;
 }	t_piparg;
 
-char	***cmdmkr(int argc, char **argv, t_piparg *arg);
+char	***cmdmkr(int argc, char **argv);
 char	**pathmkr(t_piparg *arg, char **envp);
 void	piping(t_piparg *arg, char **envp, int size);
 
-char    *nonexitpath(void);
-void	manualerror(t_piparg *arg, char *str);
+void	manualerror(char *str);
 void	erasearg(t_piparg *arg, char *str);
 void	threedfree(char ***s);
 void	twodfree(char **s);
@@ -43,7 +40,5 @@ char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strdup(const char *s1);
-char	*ft_strchr(const char *s, int c);
 
 #endif

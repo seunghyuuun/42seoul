@@ -42,7 +42,5 @@ void	erasearg(t_piparg *arg, char *str)
 {
 	threedfree(arg->cmd);
 	twodfree(arg->cmdpath);
-	if (arg->pdarr)
-		free(arg->pdarr);
-	manualerror(arg, str);
+	manualerror(str);
 }

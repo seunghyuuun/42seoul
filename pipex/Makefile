@@ -14,7 +14,7 @@ CC=cc
 CFLAGS=-Wall -Wextra -Werror
 NAME=pipex
 LIB=libft/libft.a
-SRCS=main.c free.c cmdmkr.c pathmkr.c ex.c error.c tmp.c
+SRCS=main.c free.c cmdmkr.c pathmkr.c ex.c error.c
 
 .PHONY: all clean fclean re
 
