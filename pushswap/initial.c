@@ -1,21 +1,31 @@
 #include "push_swap.h"
 
-void initialtstack(t_stack *abstack)
+int samecheck(t_stack *abstack, int n)
 {
-    abstack->atop = 0;
-    abstack->btop = 0;
-    abstack->abottom = 0;
-    abstack->bbottom = 0;
+    t_idata *node;
+
+    node = abstack->atop;
+    while (node)
+    {
+        if (node->data == n)
+            return (1);
+        node = node->next;
+    }
+    return (0);
 }
 
-t_idata *nodemaker(char *strdata)
+t_idata *nodemaker(t_stack *abstack, char *strdata)
 {
     t_idata *result;
+    int data;
 
+    data = ft_atoi(strdata);
+    if (samecheck(abstack, data))
+        return (0);
     result = (t_idata *)malloc(sizeof(t_idata));
     if (!result)
         return (result);
-    result->data = ft_atoi(strdata);
+    result->data = data;
     result->next = 0;
     result->back = 0;
     return (result);
@@ -64,7 +74,7 @@ int listing(t_stack *abstack, char *str)
     {
         if(!piececheck(pieces[i]))
             break ;
-        node = nodemaker(pieces[i]);
+        node = nodemaker(abstack, pieces[i]);
         if (!node)
             break ;
         stackbottom(abstack, node, 'a');
@@ -81,7 +91,10 @@ void initialset(t_stack *abstack, char **argv, int argc)
     int i;
 
     i = 1;
-    initialtstack(abstack);
+    abstack->atop = 0;
+    abstack->btop = 0;
+    abstack->abottom = 0;
+    abstack->bbottom = 0;
     while (i < argc)
     {
         if (!(listing(abstack, argv[i])))
