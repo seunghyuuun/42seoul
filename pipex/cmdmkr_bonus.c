@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   cmdmkr_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/16 15:48:42 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/26 16:51:07 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/06/26 16:20:15 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/26 16:23:52 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex_bonus.h"
 
-char	*ft_strdup(const char *s1)
+char	***bs_cmdmkr(int argc, char **argv, int skip)
 {
-	char	*result;
+	char	***result;
 	int		i;
 
+	result = (char ***)malloc(sizeof(char **) * (argc - skip));
+	if (!result)
+		manualerror("pipex: alloc fail\n");
+	result[argc - skip - 1] = (char **)0;
 	i = 0;
-	if (!s1)
-		return (0);
-	while (s1[i])
-		i++;
-	result = (char *)malloc(sizeof(char) * (i + 1));
-	if (result == NULL)
-		return (0);
-	i = 0;
-	while (s1[i])
+	while (i < argc - (skip + 1))
 	{
-		result[i] = s1[i];
+		result[i] = ft_split(argv[i + skip], ' ');
+		if (!result[i])
+		{
+			threedfree(result);
+			manualerror("pipex: alloc fail\n");
+		}
 		i++;
 	}
-	result[i] = 0;
 	return (result);
 }

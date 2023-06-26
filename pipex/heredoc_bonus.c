@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   heredoc_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:11:19 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/26 16:15:22 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/06/26 15:54:04 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/26 18:30:00 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-int	main(int argc, char **argv, char **envp)
+void	heremain(int argc, char **argv, char **envp)
 {
 	t_piparg	arg;
 
-	if (argc < 5)
+	if (argc < 6)
 		manualerror("pipex: more argv\n");
-	arg.inout[0] = open(argv[1], O_RDONLY);
-	if (arg.inout[0] == -1)
-		perror("pipex");
-	arg.inout[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	arg.cmd = cmdmkr(argc, argv);
+	arg.inout[0] = makeorclose(argv[2], 0);
+	arg.inout[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+	arg.cmd = bs_cmdmkr(argc, argv, 3);
 	arg.cmdpath = pathmkr(&arg, envp);
 	if (arg.inout[0] != -1)
-		piping(&arg, envp, argc - 3);
+		piping(&arg, envp, argc - 4);
 	threedfree(arg.cmd);
 	twodfree(arg.cmdpath);
-	return (0);
+	exit (0);
 }

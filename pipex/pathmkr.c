@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:12:12 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/24 16:28:51 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:07:20 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	pathok(char **path, t_piparg *arg, char **result, int index)
 	{
 		result[index] = ft_strjoin(path[i], ccmd);
 		if (!result[index])
-			erasepath(path, result, arg, "alloc fail\n");
+			erasepath(path, result, arg, "pipex: alloc fail\n");
 		else if (access(result[index], X_OK) == 0)
 			return ;
 		free(result[index]);
@@ -83,7 +83,7 @@ void	pathok(char **path, t_piparg *arg, char **result, int index)
 		i++;
 	}
 	if (!result[index])
-		erasepath(path, result, arg, "command not found\n");
+		erasepath(path, result, arg, "pipex: command not found\n");
 }
 
 char	**pathmkr(t_piparg *arg, char **envp)
@@ -97,18 +97,18 @@ char	**pathmkr(t_piparg *arg, char **envp)
 	i = 0;
 	path = envpath(envp);
 	if (!path)
-		erasepath(0, 0, arg, "alloc fail\n");
+		erasepath(0, 0, arg, "pipex: alloc fail\n");
 	while (arg->cmd[size])
 		size++;
 	result = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!result)
-		erasepath(path, 0, arg, "alloc fail\n");
+		erasepath(path, 0, arg, "pipex: alloc fail\n");
 	result[size] = 0;
 	while (i < size)
 	{
 		pathok(path, arg, result, i);
 		if (!result[i])
-			erasepath(path, result, arg, "alloc fail\n");
+			erasepath(path, result, arg, "pipex: alloc fail\n");
 		i++;
 	}
 	twodfree(path);
