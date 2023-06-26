@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:16 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/26 18:28:35 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:39:36 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	tmpfilemaker(char *endline, char *filepath)
 
 int	makeorclose(char *endline, int fd)
 {
-	int			result;
 	static char	*filepath;
 
 	if (!endline)
@@ -91,6 +90,6 @@ int	makeorclose(char *endline, int fd)
 			close(fd);
 		return (0);
 	}
-	filepath = noexitpath();
+	filepath = nonexitpath();
 	return (tmpfilemaker(endline, filepath));
 }	
