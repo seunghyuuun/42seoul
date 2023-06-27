@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:16:26 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/26 18:33:26 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:00:21 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_piparg
 	char	***cmd;
 	char	**cmdpath;
 	int		inout[2];
+	int		heredocflag;
 }	t_piparg;
 
 void	heremain(int argc, char **argv, char **envp);

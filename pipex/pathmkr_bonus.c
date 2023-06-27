@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pathmkr.c                                          :+:      :+:    :+:   */
+/*   pathmkr_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 12:12:12 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/27 18:05:17 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/06/27 17:32:12 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/27 18:07:55 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	erasepath(char **path, char **cmdpath, t_piparg *arg, char *str)
 {
@@ -68,10 +68,9 @@ void	pathok(char **path, t_piparg *arg, char **result, int index)
 	int		i;
 	char	*ccmd;
 
-	i = 0;
+	i = -1;
 	ccmd = arg->cmd[index][0];
-	result[index] = 0;
-	while (path[i])
+	while (path[++i])
 	{
 		result[index] = ft_strjoin(path[i], ccmd);
 		if (!result[index])
@@ -80,10 +79,17 @@ void	pathok(char **path, t_piparg *arg, char **result, int index)
 			return ;
 		free(result[index]);
 		result[index] = 0;
-		i++;
 	}
-	if (!result[index])
-		erasepath(path, result, arg, "pipex: command not found\n");
+	if (!result[index] && !index && arg->heredocflag)
+	{
+		makeorclose(0, 0);
+		twodfree(path);
+		twodfree(result);
+		threedfree(arg->cmd);
+		ccmd = "pipex: command not found\n";
+		write(2, ccmd, ft_strlen(ccmd));
+		exit (0);
+	}
 }
 
 char	**pathmkr(t_piparg *arg, char **envp)
@@ -107,6 +113,8 @@ char	**pathmkr(t_piparg *arg, char **envp)
 	while (i < size)
 	{
 		pathok(path, arg, result, i);
+		if (!result[i])
+			erasepath(path, result, arg, "pipex: command not found\n");
 		i++;
 	}
 	twodfree(path);

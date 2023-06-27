@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:15:10 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/26 18:33:37 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:18:19 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	threedfree(char ***s);
 void	twodfree(char **s);
 int		ft_strcmp(const char *s1, const char *s2);
 
-int		ft_printf(const char *str, ...);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);

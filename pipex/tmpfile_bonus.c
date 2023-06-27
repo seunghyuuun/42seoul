@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:42:16 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/26 18:39:36 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:17:07 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	makeorclose(char *endline, int fd)
 			free(filepath);
 			filepath = 0;
 		}
-		else
+		else if (fd)
 			close(fd);
 		return (0);
 	}

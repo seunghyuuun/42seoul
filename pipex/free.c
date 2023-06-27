@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:10:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/22 15:23:26 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:48:21 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	twodfree(char **s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return ;
 	while (s[i])
 	{
 		free(s[i]);
@@ -30,6 +32,8 @@ void	threedfree(char ***s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return ;
 	while (s[i])
 	{
 		twodfree(s[i]);

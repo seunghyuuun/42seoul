@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:15:52 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/26 17:36:40 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/27 18:00:38 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (!(ft_strcmp(argv[1], "here_doc")))
 		heremain(argc, argv, envp);
+	arg.heredocflag = 0;
 	if (argc < 5)
 		manualerror("pipex: more argv\n");
 	arg.inout[0] = open(argv[1], O_RDONLY);
