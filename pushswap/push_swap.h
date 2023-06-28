@@ -18,14 +18,6 @@ typedef struct s_stack
     t_idata *bbottom;
 } t_stack;
 
-typedef struct s_updown
-{
-    size_t a_top[3];
-    size_t a_bottom[3];
-    size_t b_top[3];
-    size_t b_bottom[3];
-} t_updown;
-
 void comcall(void (*ps)(t_stack*, int), t_stack *abstack, int c);
 void ps_swap(t_stack *abstack, int c);
 void ps_push(t_stack *abstack, int c);
@@ -36,7 +28,7 @@ void stackout(t_stack *abstack, t_idata *node, int c);
 void stacktop(t_stack *abstack, t_idata *node, int c);
 void stackbottom(t_stack *abstack, t_idata *node, int c);
 
-void udcheck(t_stack *abstack, t_updown *udinfo);
+void restbig(t_stack *abstack, size_t size);
 
 void allstackfree(t_stack *abstack);
 void twodfree(char **strs);

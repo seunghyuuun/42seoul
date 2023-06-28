@@ -5,5 +5,5 @@ int main(int argc, char **argv)
     t_stack abstack;
 
     initialset(&abstack, argv, argc);
-    firstmerge(&abstack);
+    restbig(&abstack, stacksize(abstack.atop));
 }
