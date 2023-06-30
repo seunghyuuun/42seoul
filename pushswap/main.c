@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:34:09 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:34:22 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/30 20:43:30 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int	main(int argc, char **argv)
 	}
 	initialset(&abstack, argv, argc);
 	restbig(&abstack, stacksize(abstack.atop));
+	allstackfree(&abstack);
 	return (0);
 }

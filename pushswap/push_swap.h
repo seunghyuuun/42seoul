@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:35:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:37:34 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/30 20:03:38 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void	restbig(t_stack *abstack, size_t size);
 void	restsmall(t_stack *abstack, size_t size);
 void	pivotmaker(t_idata *top, size_t size, int pivot[2]);
 
+void	nnrrab(t_stack *abstack, size_t nrra, size_t nrrb);
+void	npusha(t_stack *abstack, size_t n);
+void	endcheck(t_stack *abstack);
 void	errorend(t_stack *abstack);
 void	allstackfree(t_stack *abstack);
 void	twodfree(char **strs);

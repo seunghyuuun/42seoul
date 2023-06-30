@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:36:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:36:53 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/30 20:44:27 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	bigfloor(t_stack *abstack, size_t size)
 {
-	t_idata *temp;
+	t_idata	*temp;
 
 	if (size < 2)
 		return ;
@@ -23,13 +23,34 @@ void	bigfloor(t_stack *abstack, size_t size)
 		comcall(ps_swap, abstack, 'a');
 }
 
+void	trisect_big(t_stack *abstack, int pivot[2], size_t sml[3], size_t size)
+{
+	while (sml[0] + sml[1] + sml[2] < size)
+	{
+		endcheck(abstack);
+		if (abstack->atop->data >= pivot[1])
+		{
+			comcall(ps_rotate, abstack, 'a');
+			sml[2]++;
+		}
+		else if (abstack->atop->data > pivot[0])
+		{
+			comcall(ps_push, abstack, 'b');
+			comcall(ps_rotate, abstack, 'b');
+			sml[1]++;
+		}
+		else
+		{
+			comcall(ps_push, abstack, 'b');
+			sml[0]++;
+		}
+	}
+}
+
 void	restbig(t_stack *abstack, size_t size)
 {
 	int		pivot[2];
-	size_t	regular;
-	size_t	large;
-	size_t	max;
-	size_t	i;
+	size_t	sml[3];
 
 	if (size < 3)
 	{
@@ -39,40 +60,12 @@ void	restbig(t_stack *abstack, size_t size)
 	pivotmaker(abstack->atop, size, pivot);
 	if (!(pivot[0]) && !(pivot[1]))
 		errorend(abstack);
-	regular = 0;
-	large = 0;
-	max = 0;
-	while (regular + large + max < size)
-	{
-		if (abstack->atop->data >= pivot[1])
-		{
-			comcall(ps_rotate, abstack, 'a');
-			max++;
-		}
-		else if (abstack->atop->data > pivot[0])
-		{
-			comcall(ps_push, abstack, 'b');
-			comcall(ps_rotate, abstack, 'b');
-			large++;
-		}
-		else
-		{
-			comcall(ps_push, abstack, 'b');
-			regular++;
-		}
-	}
-	i = 0;
-	while (i < max || i < large)
-	{
-		if (i < max && i < large)
-			comcall(ps_revrotate, abstack, 'a' + 'b');
-		else if (i < max)
-			comcall(ps_revrotate, abstack, 'a');
-		else
-			comcall(ps_revrotate, abstack, 'b');
-		i++;
-	}
-	restbig(abstack, max);
-	restsmall(abstack, large);
-	restsmall(abstack, regular);
+	sml[0] = 0;
+	sml[1] = 0;
+	sml[2] = 0;
+	trisect_big(abstack, pivot, sml, size);
+	nnrrab(abstack, sml[2], sml[1]);
+	restbig(abstack, sml[2]);
+	restsmall(abstack, sml[1]);
+	restsmall(abstack, sml[0]);
 }
