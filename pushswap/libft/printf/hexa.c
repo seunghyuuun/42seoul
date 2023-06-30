@@ -1,47 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   hexa.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/06/07 15:21:58 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/09 18:21:41 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "ft_printf.h"
 
-void	allstackfree(t_stack *abstack)
+char	*ch_hexa(char *unchange, unsigned int n, char type)
 {
-	t_idata	*cage;
-	t_idata	*bird;
+	char	*change;
+	t_flag	flag;
+	int		i;
 
-	cage = abstack->atop;
-	while (cage)
+	flagstore(&flag, unchange);
+	if (flag.hash && n)
+		change = yeshash(flag, (unsigned long)n);
+	else
+		change = nohash(flag, (unsigned long)n);
+	if (type == 'X')
 	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
+		i = 0;
+		while (change[i])
+		{
+			change[i] = ft_toupper(change[i]);
+			i++;
+		}
 	}
-	cage = abstack->btop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
+	return (change);
 }

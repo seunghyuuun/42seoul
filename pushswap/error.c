@@ -1,27 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/30 14:23:44 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/30 14:24:47 by seunghy2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-int argcheck(char *str)
+void	errorend(t_stack *abstack)
 {
-    int i;
-    int digit;
-
-    i = 0;
-    digit = 0;
-    while (str[i])
-    {
-        if ((str[i] == '-' || str[i] == '+') && ft_isdigit(str[i + 1]))
-            i++;
-        else if (ft_isdigit(str[i]))
-        {
-            digit++;
-            i++;
-        }
-        else if (str[i] == ' ')
-            i++;
-        else
-            return (-1);
-    }
-    if (!digit)
-        return (-1);
-    return (0);
+	allstackfree(abstack);
+	ft_printf("Error\n");
+	exit (-1);
 }

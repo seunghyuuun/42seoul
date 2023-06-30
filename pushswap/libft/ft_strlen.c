@@ -1,47 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/13 12:44:11 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/26 16:49:20 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	allstackfree(t_stack *abstack)
+size_t	ft_strlen(const char *s)
 {
-	t_idata	*cage;
-	t_idata	*bird;
-
-	cage = abstack->atop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-	cage = abstack->btop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
+	if (!s)
+		return (i);
+	while (s[i])
 		i++;
-	}
-	free(strs);
+	return (i);
 }

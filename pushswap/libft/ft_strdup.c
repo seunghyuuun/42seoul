@@ -1,47 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 15:48:42 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/26 16:51:07 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	allstackfree(t_stack *abstack)
+char	*ft_strdup(const char *s1)
 {
-	t_idata	*cage;
-	t_idata	*bird;
-
-	cage = abstack->atop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-	cage = abstack->btop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
+	char	*result;
+	int		i;
 
 	i = 0;
-	while (strs[i])
+	if (!s1)
+		return (0);
+	while (s1[i])
+		i++;
+	result = (char *)malloc(sizeof(char) * (i + 1));
+	if (result == NULL)
+		return (0);
+	i = 0;
+	while (s1[i])
 	{
-		free(strs[i]);
+		result[i] = s1[i];
 		i++;
 	}
-	free(strs);
+	result[i] = 0;
+	return (result);
 }

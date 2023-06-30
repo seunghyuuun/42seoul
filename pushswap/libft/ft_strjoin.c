@@ -1,47 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 21:27:16 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/26 16:50:44 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	allstackfree(t_stack *abstack)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	t_idata	*cage;
-	t_idata	*bird;
+	size_t	len;
+	size_t	i;
+	char	*result;
+	size_t	j;
 
-	cage = abstack->atop;
-	while (cage)
+	i = -1;
+	if (!s1 || !s2)
+		return (0);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	result = (char *)malloc(len + 1);
+	if (!result)
+		return (0);
+	while (s1[++i])
+		result[i] = s1[i];
+	j = 0;
+	while (s2[j])
 	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-	cage = abstack->btop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
+		result[i] = s2[j];
 		i++;
+		j++;
 	}
-	free(strs);
+	result[i] = 0;
+	return (result);
 }

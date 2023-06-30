@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   restbig.c                                          :+:      :+:    :+:   */
+/*   restsmall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:36:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:36:53 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/06/30 16:27:40 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/06/30 16:27:42 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	bigfloor(t_stack *abstack, size_t size)
+void	smallfloor(t_stack *abstack, size_t size)
 {
 	t_idata *temp;
 
-	if (size < 2)
+	if (!size)
 		return ;
-	temp = abstack->atop->next;
-	if (abstack->atop->data > temp->data)
-		comcall(ps_swap, abstack, 'a');
+	if (size == 2)
+	{
+		temp = abstack->btop->next;
+		if (abstack->btop->data < temp->data)
+			comcall(ps_swap, abstack, 'b');
+	}
+	comcall(ps_push, abstack, 'a');
+	while (--size)
+		comcall(ps_push, abstack, 'a');
 }
 
-void	restbig(t_stack *abstack, size_t size)
+void	restsmall(t_stack *abstack, size_t size)
 {
 	int		pivot[2];
 	size_t	regular;
@@ -33,10 +39,10 @@ void	restbig(t_stack *abstack, size_t size)
 
 	if (size < 3)
 	{
-		bigfloor(abstack, size);
+		smallfloor(abstack, size);
 		return ;
 	}
-	pivotmaker(abstack->atop, size, pivot);
+	pivotmaker(abstack->btop, size, pivot);
 	if (!(pivot[0]) && !(pivot[1]))
 		errorend(abstack);
 	regular = 0;
@@ -44,35 +50,35 @@ void	restbig(t_stack *abstack, size_t size)
 	max = 0;
 	while (regular + large + max < size)
 	{
-		if (abstack->atop->data >= pivot[1])
+		if (abstack->btop->data >= pivot[1])
 		{
-			comcall(ps_rotate, abstack, 'a');
+			comcall(ps_push, abstack, 'a');
 			max++;
 		}
-		else if (abstack->atop->data > pivot[0])
+		else if (abstack->btop->data > pivot[0])
 		{
-			comcall(ps_push, abstack, 'b');
-			comcall(ps_rotate, abstack, 'b');
+			comcall(ps_push, abstack, 'a');
+			comcall(ps_rotate, abstack, 'a');
 			large++;
 		}
 		else
 		{
-			comcall(ps_push, abstack, 'b');
+			comcall(ps_rotate, abstack, 'b');
 			regular++;
 		}
 	}
+	restbig(abstack, max);
 	i = 0;
-	while (i < max || i < large)
+	while (i < regular || i < large)
 	{
-		if (i < max && i < large)
+		if (i < regular && i < large)
 			comcall(ps_revrotate, abstack, 'a' + 'b');
-		else if (i < max)
+		else if (i < large)
 			comcall(ps_revrotate, abstack, 'a');
 		else
 			comcall(ps_revrotate, abstack, 'b');
 		i++;
 	}
-	restbig(abstack, max);
-	restsmall(abstack, large);
+	restbig(abstack, large);
 	restsmall(abstack, regular);
 }

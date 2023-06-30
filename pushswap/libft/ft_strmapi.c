@@ -1,47 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/17 13:43:19 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/17 13:54:41 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	allstackfree(t_stack *abstack)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	t_idata	*cage;
-	t_idata	*bird;
+	unsigned int	size;
+	unsigned int	i;
+	char			*result;
 
-	cage = abstack->atop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-	cage = abstack->btop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
-
+	size = (unsigned int)ft_strlen(s);
+	result = (char *)malloc(sizeof(char) * (size + 1));
+	if (!result)
+		return (0);
+	result[size] = 0;
 	i = 0;
-	while (strs[i])
+	while (i < size)
 	{
-		free(strs[i]);
+		result[i] = f(i, s[i]);
 		i++;
 	}
-	free(strs);
+	return (result);
 }

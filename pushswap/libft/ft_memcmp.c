@@ -1,47 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 14:53:47 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/16 15:05:40 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	allstackfree(t_stack *abstack)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_idata	*cage;
-	t_idata	*bird;
+	unsigned char	*temp1;
+	unsigned char	*temp2;
+	int				cmp;
 
-	cage = abstack->atop;
-	while (cage)
+	temp1 = (unsigned char *)s1;
+	temp2 = (unsigned char *)s2;
+	while (n)
 	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
+		cmp = *temp1 - *temp2;
+		if (cmp)
+			return (cmp);
+		temp1++;
+		temp2++;
+		n--;
 	}
-	cage = abstack->btop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
+	return (0);
 }

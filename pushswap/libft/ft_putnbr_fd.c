@@ -1,47 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/17 15:37:03 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/17 15:39:43 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	allstackfree(t_stack *abstack)
+void	ft_putnbr_fd(int n, int fd)
 {
-	t_idata	*cage;
-	t_idata	*bird;
+	char	c;
 
-	cage = abstack->atop;
-	while (cage)
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	else if (n < 0)
 	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
+		write(fd, "-", 1);
+		ft_putnbr_fd(-n, fd);
 	}
-	cage = abstack->btop;
-	while (cage)
+	else if (n < 10)
 	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
+		c = '0' + n;
+		write(fd, &c, 1);
 	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
+	else
 	{
-		free(strs[i]);
-		i++;
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
 	}
-	free(strs);
 }

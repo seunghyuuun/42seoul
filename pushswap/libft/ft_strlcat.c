@@ -1,47 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 12:08:12 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/16 12:25:23 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	allstackfree(t_stack *abstack)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	t_idata	*cage;
-	t_idata	*bird;
-
-	cage = abstack->atop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-	cage = abstack->btop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
+	size_t	i;
+	size_t	j;
+	size_t	dstlen;
 
 	i = 0;
-	while (strs[i])
+	j = 0;
+	while (dst[j] != 0)
+		j++;
+	dstlen = j;
+	while (src[i] != 0 && j + 1 < dstsize)
 	{
-		free(strs[i]);
+		dst[j] = src[i];
+		j++;
 		i++;
 	}
-	free(strs);
+	dst[j] = 0;
+	while (src[i])
+	{
+		j++;
+		i++;
+	}
+	if (dstlen > dstsize)
+		return (i + dstsize);
+	return (j);
 }

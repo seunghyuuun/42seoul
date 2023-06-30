@@ -1,47 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 14:32:09 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/21 16:44:30 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	allstackfree(t_stack *abstack)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	t_idata	*cage;
-	t_idata	*bird;
-
-	cage = abstack->atop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-	cage = abstack->btop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
+	unsigned char	*temp;
+	unsigned char	tofind;
+	size_t			i;
 
 	i = 0;
-	while (strs[i])
+	tofind = (unsigned char)c;
+	temp = (unsigned char *)s;
+	while (i < n)
 	{
-		free(strs[i]);
+		if (*temp == tofind)
+			return ((void *)temp);
 		i++;
+		temp++;
 	}
-	free(strs);
+	return (0);
 }

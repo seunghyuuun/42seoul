@@ -1,47 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 11:41:26 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/16 12:26:03 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	allstackfree(t_stack *abstack)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	t_idata	*cage;
-	t_idata	*bird;
-
-	cage = abstack->atop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-	cage = abstack->btop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (strs[i])
+	j = 0;
+	while (src[j] != 0)
+		j++;
+	if (dstsize == 0)
+		return (j);
+	while (src[i] != 0 && i < dstsize - 1)
 	{
-		free(strs[i]);
+		dst[i] = src[i];
 		i++;
 	}
-	free(strs);
+	dst[i] = 0;
+	return (j);
 }

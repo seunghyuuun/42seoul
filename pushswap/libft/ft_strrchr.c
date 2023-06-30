@@ -1,47 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/16 13:33:23 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/16 13:41:16 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	allstackfree(t_stack *abstack)
+char	*ft_strrchr(const char *s, int c)
 {
-	t_idata	*cage;
-	t_idata	*bird;
+	char	tofind;
+	char	*temp;
+	char	*result;
 
-	cage = abstack->atop;
-	while (cage)
+	tofind = (char)c;
+	temp = (char *)s;
+	result = 0;
+	while (*temp)
 	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
+		if (*temp == tofind)
+			result = temp;
+		temp++;
 	}
-	cage = abstack->btop;
-	while (cage)
-	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
-	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
+	if (!tofind)
+		return (temp);
+	return (result);
 }

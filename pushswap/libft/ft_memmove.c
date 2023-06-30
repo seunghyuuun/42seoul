@@ -1,47 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:24:56 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:26:01 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/03/13 17:00:17 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/03/24 12:39:06 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	allstackfree(t_stack *abstack)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	t_idata	*cage;
-	t_idata	*bird;
+	unsigned char	*idst;
+	unsigned char	*isrc;
+	size_t			i;
 
-	cage = abstack->atop;
-	while (cage)
+	if (dst == src || !len)
+		return (dst);
+	idst = (unsigned char *)dst;
+	isrc = (unsigned char *)src;
+	if (isrc + len > idst && idst > isrc)
 	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
+		while (--len)
+			idst[len] = isrc[len];
+		idst[len] = isrc[len];
 	}
-	cage = abstack->btop;
-	while (cage)
+	else
 	{
-		bird = cage;
-		cage = cage->next;
-		free(bird);
+		i = -1;
+		while (++i < len)
+			idst[i] = isrc[i];
 	}
-}
-
-void	twodfree(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
+	return (dst);
 }

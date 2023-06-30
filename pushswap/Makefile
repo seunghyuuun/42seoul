@@ -1,8 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/06/30 14:12:35 by seunghy2          #+#    #+#              #
+#    Updated: 2023/06/30 14:12:50 by seunghy2         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 NAME=push_swap
 LIB=libft/libft.a
-SRCS=main.c abstack.c idata.c free.c initial.c
+SRCS=main.c abstack.c idata.c free.c initial.c pivot.c restbig.c restsmall.c error.c
 
 .PHONY: all clean fclean re
 
