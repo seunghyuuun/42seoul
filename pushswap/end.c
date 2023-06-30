@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:44:34 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 20:03:05 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/06/30 21:21:51 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	endcheck(t_stack *abstack)
 	t_idata	*temp;
 	size_t	bsize;
 
-	if (abstack->atop && abstack->btop && abstack->atop->data < abstack->btop->data)
+	if (abstack->atop && abstack->btop && \
+			abstack->atop->data < abstack->btop->data)
 		return ;
 	temp = abstack->atop;
 	while (temp && temp->next)
