@@ -13,18 +13,25 @@
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 NAME=push_swap
+BNAME=checker
 LIB=libft/libft.a
-SRCS=main.c abstack.c idata.c free.c initial.c pivot.c restbig.c restsmall.c end.c ntimes.c
+SRCS=main.c abstack.c comcall.c idata.c free.c initial.c pivot.c restbig.c restsmall.c end.c ntimes.c
+BSRCS=main_bonus.c initial.c end.c free.c idata.c abstack.c get_next_line_bonus.c comlst_bonus.c
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
 
 all : $(NAME)
 
 $(NAME) : $(SRCS) $(LIB)
 	$(CC) $(CFLAGS) -o $@ $(SRCS) -L ./libft -lft
 
+bonus : $(BNAME)
+
+$(BNAME) : $(BSRCS) $(LIB)
+	$(CC) $(CFLAGS) -o $@ $(SRCS) -L ./libft -lft
+
 $(LIB) :
-	make -C ./libft
+	make -C ./libft bonus
 
 clean :
 	make -C ./libft fclean
@@ -32,6 +39,7 @@ clean :
 fclean :
 	make clean
 	rm -f $(NAME)
+	rm -f $(BNAME)
 
 re :
 	make fclean
