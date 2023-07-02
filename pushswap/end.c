@@ -12,19 +12,19 @@
 
 #include "push_swap.h"
 
-void	endcheck(t_stack *abstack)
+size_t	endcheck(t_stack *abstack)
 {
 	t_idata	*temp;
 	size_t	bsize;
 
 	if (abstack->atop && abstack->btop && \
 			abstack->atop->data < abstack->btop->data)
-		return ;
+		return (0);
 	temp = abstack->atop;
 	while (temp && temp->next)
 	{
 		if (temp->data > temp->next->data)
-			return ;
+			return (0);
 		temp = temp->next;
 	}
 	bsize = 1;
@@ -32,13 +32,11 @@ void	endcheck(t_stack *abstack)
 	while (temp && temp->next)
 	{
 		if (temp->data < temp->next->data)
-			return ;
+			return (0);
 		temp = temp->next;
 		bsize++;
 	}
-	npusha(abstack, bsize);
-	allstackfree(abstack);
-	exit(0);
+	return (bsize);
 }
 
 void	errorend(t_stack *abstack)

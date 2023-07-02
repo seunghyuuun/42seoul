@@ -29,7 +29,12 @@ void	trisect_sm(t_stack *abstack, int pivot[2], size_t sml[3], size_t size)
 {
 	while (sml[0] + sml[1] + sml[2] < size)
 	{
-		endcheck(abstack);
+		if (endcheck(abstack))
+		{
+			npusha(abstack, endcheck(abstack));
+			allstackfree(abstack);
+			exit(0);
+		}
 		if (abstack->btop->data >= pivot[1])
 		{
 			comcall(ps_push, abstack, 'a');

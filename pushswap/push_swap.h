@@ -47,7 +47,7 @@ void	pivotmaker(t_idata *top, size_t size, int pivot[2]);
 
 void	nnrrab(t_stack *abstack, size_t nrra, size_t nrrb);
 void	npusha(t_stack *abstack, size_t n);
-void	endcheck(t_stack *abstack);
+size_t	endcheck(t_stack *abstack);
 void	errorend(t_stack *abstack);
 void	allstackfree(t_stack *abstack);
 void	twodfree(char **strs);
