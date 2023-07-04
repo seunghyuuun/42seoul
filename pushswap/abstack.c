@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:18:22 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 14:23:37 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:56:46 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,30 +118,4 @@ void	ps_revrotate(t_stack *abstack, int c)
 			stacktop(abstack, last, 'b');
 		}
 	}
-}
-
-void	comcall(void (*ps)(t_stack*, int), t_stack *abstack, int c)
-{
-	int	first;
-	int	second;
-
-	first = 0;
-	second = 0;
-	if (ps == ps_swap)
-		first = 's';
-	else if (ps == ps_push)
-		first = 'p';
-	else if (ps == ps_rotate)
-		first = 'r';
-	else if (ps == ps_revrotate)
-	{
-		first = 'r';
-		ft_printf("%c", first);
-	}
-	if (c == 'a' + 'b')
-		second = first;
-	else if (c == 'a' || c == 'b')
-		second = c;
-	ft_printf("%c%c\n", first, second);
-	ps(abstack, c);
 }

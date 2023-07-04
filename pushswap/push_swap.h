@@ -41,9 +41,11 @@ void	stacktop(t_stack *abstack, t_idata *node, int c);
 void	stackbottom(t_stack *abstack, t_idata *node, int c);
 
 void	initialset(t_stack *abstack, char **argv, int argc);
+void	firsttime(t_stack *abstack, size_t size);
 void	restbig(t_stack *abstack, size_t size);
 void	restsmall(t_stack *abstack, size_t size);
 void	pivotmaker(t_idata *top, size_t size, int pivot[2]);
+void	bigfloor(t_stack *abstack, size_t size);
 
 void	nnrrab(t_stack *abstack, size_t nrra, size_t nrrb);
 void	npusha(t_stack *abstack, size_t n);

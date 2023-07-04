@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_bonus.h                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/04 15:55:52 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/07/04 15:56:15 by seunghy2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_BONUS_H
 # define PUSH_SWAP_BONUS_H
 
@@ -41,8 +53,8 @@ void	errorend(t_stack *abstack);
 void	allstackfree(t_stack *abstack);
 void	twodfree(char **strs);
 
-t_list *commandset(void);
-void commanddo(t_stack *abstack, t_list *comlst);
+t_list	*commandset(void);
+void	commanddo(t_stack *abstack, t_list *comlst);
 
 char	*get_next_line(int fd);
 int		ft_printf(const char *str, ...);

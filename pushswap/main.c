@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	}
 	initialset(&abstack, argv, argc);
-	restbig(&abstack, stacksize(abstack.atop));
+	firsttime(&abstack, stacksize(abstack.atop));
 	allstackfree(&abstack);
 	return (0);
 }
