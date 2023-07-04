@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:48:42 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/03/16 20:47:48 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:00:36 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s1)
 	int		i;
 
 	i = 0;
+	if (!s1)
+		return (0);
 	while (s1[i])
 		i++;
 	result = (char *)malloc(sizeof(char) * (i + 1));
