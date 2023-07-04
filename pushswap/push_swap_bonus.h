@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:55:52 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/04 15:56:15 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:12:48 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_BONUS_H
 
 # include <stdlib.h>
+# include <unistd.h>
 
 # define BUFFER_SIZE 42
 

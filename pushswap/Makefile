@@ -6,7 +6,7 @@
 #    By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/30 14:12:35 by seunghy2          #+#    #+#              #
-#    Updated: 2023/06/30 18:44:25 by seunghy2         ###   ########.fr        #
+#    Updated: 2023/07/04 20:11:26 by seunghy2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ $(NAME) : $(SRCS) $(LIB) push_swap.h
 bonus : $(BNAME)
 
 $(BNAME) : $(BSRCS) $(LIB) push_swap.h push_swap_bonus.h
-	$(CC) $(CFLAGS) -o $@ $(SRCS) -L ./libft -lft
+	$(CC) $(CFLAGS) -o $@ $(BSRCS) -L ./libft -lft
 
 $(LIB) :
 	make -C ./libft bonus
