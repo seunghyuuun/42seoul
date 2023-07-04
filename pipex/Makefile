@@ -6,7 +6,7 @@
 #    By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/19 19:00:55 by seunghy2          #+#    #+#              #
-#    Updated: 2023/06/27 18:08:21 by seunghy2         ###   ########.fr        #
+#    Updated: 2023/07/04 19:44:44 by seunghy2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,14 +25,14 @@ all : $(NAME)
 
 $(NAME) : manda_flag
 
-manda_flag : $(SRCS) $(LIB)
+manda_flag : $(SRCS) $(LIB) pipex.h
 	rm -f $(NAME)
 	$(CC) $(CFLAGS) -o $(NAME) $(SRCS) -L ./libft -lft
 	touch manda_flag
 
 bonus : bonus_flag
 
-bonus_flag : $(BSRCS) $(LIB)
+bonus_flag : $(BSRCS) $(LIB) pipex.h pipex_bonus.h
 	rm -f $(NAME)
 	$(CC) $(CFLAGS) -o $(NAME) $(BSRCS) -L ./libft -lft
 	touch bonus_flag
