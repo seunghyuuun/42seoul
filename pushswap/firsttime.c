@@ -6,13 +6,13 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:36:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/04 17:36:34 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:17:59 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	trisect_first(t_stack *abstack, int pivot[2], size_t sml[3], size_t size)
+void	trisect_fst(t_stack *abstack, int pivot[2], size_t sml[3], size_t size)
 {
 	while (sml[0] + sml[1] + sml[2] < size)
 	{
@@ -57,7 +57,7 @@ void	firsttime(t_stack *abstack, size_t size)
 	sml[0] = 0;
 	sml[1] = 0;
 	sml[2] = 0;
-	trisect_first(abstack, pivot, sml, size);
+	trisect_fst(abstack, pivot, sml, size);
 	restbig(abstack, sml[2]);
 	restsmall(abstack, sml[1]);
 	restsmall(abstack, sml[0]);
