@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:55:52 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/04 20:12:48 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:29:42 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	errorend(t_stack *abstack);
 void	allstackfree(t_stack *abstack);
 void	twodfree(char **strs);
 
-t_list	*commandset(void);
+t_list	*commandset(int *errorcheck);
 void	commanddo(t_stack *abstack, t_list *comlst);
 
 char	*get_next_line(int fd);

@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:51:35 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/04 15:54:32 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:27:59 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	checkcmd(char *cmd)
 	return (0);
 }
 
-t_list	*commandset(void)
+t_list	*commandset(int *errorcheck)
 {
 	t_list	*result;
 	t_list	*temp;
@@ -54,6 +54,7 @@ t_list	*commandset(void)
 		ft_lstadd_back(&result, temp);
 		cmd = get_next_line(0);
 	}
+	*errorcheck = 0;
 	return (result);
 }
 
