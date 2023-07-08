@@ -34,7 +34,7 @@ size_t	comcall(void (*ps)(t_stack*, int), t_stack *abstack, int c)
 		second = first;
 	else if (c == 'a' || c == 'b')
 		second = c;
-	printf("%c%c\n", first, second);
+	ft_printf("%c%c\n", first, second);
 	ps(abstack, c);
 	return (1);
 }
