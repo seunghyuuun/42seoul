@@ -12,6 +12,28 @@
 
 #include "push_swap.h"
 
+void threesize(t_stack *abstack)
+{
+	int data[3];
+	size_t i;
+	t_idata *temp;
+
+	i = 0;
+	temp = abstack->atop;
+	while (i < 3)
+	{
+		data[i] = temp->data;
+		i++;
+		temp = temp->next;
+	}
+	if (data[0] > data[1] && data[0] > data[2])
+		comcall(ps_rotate, abstack, 'a');
+	else if (data[1] > data[0] && data[1] > data[2])
+		comcall(ps_revrotate, abstack, 'a');
+	if (abstack->atop->data > abstack->atop->next->data)
+		comcall(ps_swap, abstack, 'a');
+}
+
 void	trisect_fst(t_stack *abstack, int pivot[2], size_t sml[3], size_t size)
 {
 	while (sml[0] + sml[1] + sml[2] < size)
@@ -23,21 +45,20 @@ void	trisect_fst(t_stack *abstack, int pivot[2], size_t sml[3], size_t size)
 			exit(0);
 		}
 		if (abstack->atop->data >= pivot[1])
-		{
-			comcall(ps_rotate, abstack, 'a');
-			sml[2]++;
-		}
+			sml[2] += comcall(ps_rotate, abstack, 'a');
 		else if (abstack->atop->data <= pivot[0])
 		{
-			comcall(ps_push, abstack, 'b');
-			comcall(ps_rotate, abstack, 'b');
-			sml[1]++;
+			sml[0] += comcall(ps_push, abstack, 'b');
+			if (sml[1])
+			{
+				if (sml[0] + sml[1] + sml[2] < size && abstack->atop->data >= pivot[1])
+					sml[2] += comcall(ps_rotate, abstack, 'a' + 'b');
+				else
+					comcall(ps_rotate, abstack, 'b');
+			}
 		}
 		else
-		{
-			comcall(ps_push, abstack, 'b');
-			sml[0]++;
-		}
+			sml[1] += comcall(ps_push, abstack, 'b');
 	}
 }
 
@@ -49,6 +70,11 @@ void	firsttime(t_stack *abstack, size_t size)
 	if (size < 3)
 	{
 		bigfloor(abstack, size);
+		return ;
+	}
+	else if (size == 3)
+	{
+		threesize(abstack);
 		return ;
 	}
 	pivotmaker(abstack->atop, size, pivot);

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	comcall(void (*ps)(t_stack*, int), t_stack *abstack, int c)
+size_t	comcall(void (*ps)(t_stack*, int), t_stack *abstack, int c)
 {
 	int	first;
 	int	second;
@@ -34,6 +34,7 @@ void	comcall(void (*ps)(t_stack*, int), t_stack *abstack, int c)
 		second = first;
 	else if (c == 'a' || c == 'b')
 		second = c;
-	ft_printf("%c%c\n", first, second);
+	printf("%c%c\n", first, second);
 	ps(abstack, c);
+	return (1);
 }

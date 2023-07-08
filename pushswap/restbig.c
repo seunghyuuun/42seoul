@@ -12,12 +12,30 @@
 
 #include "push_swap.h"
 
+void bigthree(t_stack *abstack)
+{
+	int triple[3];
+
+	triple[0] = abstack->atop->data;
+	triple[1] = abstack->atop->next->data;
+	triple[2] = abstack->atop->next->next->data;
+	if (triple[2] > triple[0] && triple[2] > triple[1])
+		return ;
+	if (triple[0] > triple[1])
+		comcall(ps_swap, abstack, 'a');
+	comcall(ps_rotate, abstack, 'a');
+	comcall(ps_swap, abstack, 'a');
+	comcall(ps_revrotate, abstack, 'a');
+}
+
 void	bigfloor(t_stack *abstack, size_t size)
 {
 	t_idata	*temp;
 
 	if (size < 2)
 		return ;
+	if (size == 3)
+		bigthree(abstack);
 	temp = abstack->atop->next;
 	if (abstack->atop->data > temp->data)
 		comcall(ps_swap, abstack, 'a');
@@ -34,21 +52,17 @@ void	trisect_big(t_stack *abstack, int pivot[2], size_t sml[3], size_t size)
 			exit(0);
 		}
 		if (abstack->atop->data >= pivot[1])
-		{
-			comcall(ps_rotate, abstack, 'a');
-			sml[2]++;
-		}
+			sml[2] += comcall(ps_rotate, abstack, 'a');
 		else if (abstack->atop->data > pivot[0])
 		{
-			comcall(ps_push, abstack, 'b');
-			comcall(ps_rotate, abstack, 'b');
-			sml[1]++;
+			sml[1] += comcall(ps_push, abstack, 'b');
+			if (sml[0] + sml[1] + sml[2] < size && abstack->atop->data >= pivot[1])
+				sml[2] += comcall(ps_rotate, abstack, 'a' + 'b');
+			else
+				comcall(ps_rotate, abstack, 'b');
 		}
 		else
-		{
-			comcall(ps_push, abstack, 'b');
-			sml[0]++;
-		}
+			sml[0] += comcall(ps_push, abstack, 'b');
 	}
 }
 
@@ -57,7 +71,7 @@ void	restbig(t_stack *abstack, size_t size)
 	int		pivot[2];
 	size_t	sml[3];
 
-	if (size < 3)
+	if (size < 4)
 	{
 		bigfloor(abstack, size);
 		return ;

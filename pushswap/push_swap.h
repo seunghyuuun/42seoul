@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
+# include <stdio.h>
 
 typedef struct s_idata
 {
@@ -30,7 +31,7 @@ typedef struct s_stack
 	t_idata	*bbottom;
 }	t_stack;
 
-void	comcall(void (*ps)(t_stack*, int), t_stack *abstack, int c);
+size_t	comcall(void (*ps)(t_stack*, int), t_stack *abstack, int c);
 void	ps_swap(t_stack *abstack, int c);
 void	ps_push(t_stack *abstack, int c);
 void	ps_rotate(t_stack *abstack, int c);
