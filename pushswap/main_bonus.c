@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:54:47 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/04 20:28:54 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:25:14 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@ int	main(int argc, char **argv)
 
 	errorcheck = 1;
 	if (argc == 1)
-	{
-		ft_printf("Error\n");
 		return (-1);
-	}
 	initialset(&abstack, argv, argc);
 	comlst = commandset(&errorcheck);
 	if (!errorcheck)
 		commanddo(&abstack, comlst);
 	else
 	{
-		ft_printf("Error\n");
+		write(2, "Error\n", 6);
 		allstackfree(&abstack);
 		return (-1);
 	}

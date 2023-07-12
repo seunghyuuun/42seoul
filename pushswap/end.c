@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 18:44:34 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 21:21:51 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:16:18 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ size_t	endcheck(t_stack *abstack)
 void	errorend(t_stack *abstack)
 {
 	allstackfree(abstack);
-	ft_printf("Error\n");
+	write(2, "Error\n", 6);
 	exit (-1);
 }

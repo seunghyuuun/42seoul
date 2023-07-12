@@ -6,17 +6,17 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:36:17 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/04 20:17:59 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:04:02 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void threesize(t_stack *abstack)
+void	threesize(t_stack *abstack)
 {
-	int data[3];
-	size_t i;
-	t_idata *temp;
+	int		data[3];
+	size_t	i;
+	t_idata	*temp;
 
 	i = 0;
 	temp = abstack->atop;
@@ -51,7 +51,8 @@ void	trisect_fst(t_stack *abstack, int pivot[2], size_t sml[3], size_t size)
 			sml[0] += comcall(ps_push, abstack, 'b');
 			if (sml[1])
 			{
-				if (sml[0] + sml[1] + sml[2] < size && abstack->atop->data >= pivot[1])
+				if (sml[0] + sml[1] + sml[2] < size \
+						&& abstack->atop->data >= pivot[1])
 					sml[2] += comcall(ps_rotate, abstack, 'a' + 'b');
 				else
 					comcall(ps_rotate, abstack, 'b');

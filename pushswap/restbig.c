@@ -6,15 +6,15 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:36:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 20:44:27 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:05:12 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void bigthree(t_stack *abstack)
+void	bigthree(t_stack *abstack)
 {
-	int triple[3];
+	int	triple[3];
 
 	triple[0] = abstack->atop->data;
 	triple[1] = abstack->atop->next->data;
@@ -56,7 +56,8 @@ void	trisect_big(t_stack *abstack, int pivot[2], size_t sml[3], size_t size)
 		else if (abstack->atop->data > pivot[0])
 		{
 			sml[1] += comcall(ps_push, abstack, 'b');
-			if (sml[0] + sml[1] + sml[2] < size && abstack->atop->data >= pivot[1])
+			if (sml[0] + sml[1] + sml[2] < size \
+					&& abstack->atop->data >= pivot[1])
 				sml[2] += comcall(ps_rotate, abstack, 'a' + 'b');
 			else
 				comcall(ps_rotate, abstack, 'b');

@@ -6,15 +6,15 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 16:27:40 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/06/30 21:22:53 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:06:10 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void smallthree(t_stack *abstack)
+void	smallthree(t_stack *abstack)
 {
-	int triple[3];
+	int	triple[3];
 
 	triple[0] = abstack->btop->data;
 	triple[1] = abstack->btop->next->data;
@@ -58,7 +58,8 @@ void	trisect_sm(t_stack *abstack, int pivot[2], size_t sml[3], size_t size)
 		else if (abstack->btop->data > pivot[0])
 		{
 			sml[1] += comcall(ps_push, abstack, 'a');
-			if (sml[0] + sml[1] + sml[2] < size && abstack->btop->data <= pivot[0])
+			if (sml[0] + sml[1] + sml[2] < size \
+					&& abstack->btop->data <= pivot[0])
 				sml [0] += comcall(ps_rotate, abstack, 'a' + 'b');
 			else
 				comcall(ps_rotate, abstack, 'a');
