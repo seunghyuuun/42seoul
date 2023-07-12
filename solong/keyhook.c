@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 17:40:33 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/12 20:33:46 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:03:24 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	moving(t_map *map, size_t shift, int plus, unsigned int *movement)
 {
 	char	*position;
 	char	*future;
+	//char	*temp;
 
 	position = ft_strchr(map->plan, 'P');
 	if (plus)
@@ -49,6 +50,9 @@ void	moving(t_map *map, size_t shift, int plus, unsigned int *movement)
 	if (*future == '1')
 		return ;
 	(*movement)++;
+	//temp = ft_itoa((int)(*movement));
+	//mlx_string_put(map->mlx_ptr, map->win_ptr, 0, 32 * (map->sero), 15, temp);
+	//free(temp);
 	ft_printf("%u\n", *movement);
 	if (*future == 'X' || *future == 'E')
 	{
