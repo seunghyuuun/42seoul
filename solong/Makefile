@@ -13,7 +13,7 @@
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 NAME=so_long
-SRCS=main.c
+SRCS=main.c error.c get_next_line.c plancheck.c planset.c keyhook.c
 LIBMLX=./minilibx/libmlx.a
 LIBFT=./libft/libft.a
 
@@ -21,7 +21,7 @@ LIBFT=./libft/libft.a
 
 all : $(NAME)
 
-$(NAME) : $(SRCS) $(LIBMLX) $(LIBFT)
+$(NAME) : $(SRCS) $(LIBMLX) $(LIBFT) so_long.h
 	$(CC) $(CFLAGS) -o $(NAME) $(SRCS) -L ./minilibx -lmlx -L ./libft -lft -framework OpenGL -framework AppKit -lz
 
 $(LIBMLX) :
