@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:38:27 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/12 21:03:38 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:04:18 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,32 @@
 
 typedef struct s_map
 {
-    char	*plan;
-    size_t	garo;
-    size_t	sero;
-    void	*mlx_ptr;
-    void	*win_ptr;
-    void	*empty;
-    void	*wall;
-    void	*exit;
-    void	*collect;
-    void	*enemy;
-    void	*player1;
-    void	*player2;
-    int		pnum;
+	char	*plan;
+	size_t	garo;
+	size_t	sero;
+	void	*mlx;
+	void	*win;
+	void	*empty;
+	void	*wall;
+	void	*exit;
+	void	*collect;
+	void	*enemy;
+	void	*player1;
+	void	*player2;
+	size_t	collection;
+	int		pnum;
 }	t_map;
 
-void	plancheck(t_map *map, char *mapname);
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
+size_t	i2d(t_map *map, size_t g, size_t s);
+
+void	plancheck(t_map *map, int fd);
+void	pathcheck(t_map *map);
 void	planset(t_map *map);
 int		key_hook(int keycode, t_map *map);
 
@@ -60,6 +70,8 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-//char	*ft_itoa(int n);
+t_list	*ft_lstnew(void *content);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+void	ft_lstclear(t_list **lst, void (*del)(void *));
 
 #endif

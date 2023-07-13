@@ -13,7 +13,7 @@
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 NAME=so_long
-SRCS=main.c error.c get_next_line.c plancheck.c planset.c keyhook.c
+SRCS=main.c error.c get_next_line.c plancheck.c pathcheck.c planset.c keyhook.c
 LIBMLX=./minilibx/libmlx.a
 LIBFT=./libft/libft.a
 
@@ -28,7 +28,7 @@ $(LIBMLX) :
 	make -C ./minilibx
 
 $(LIBFT) :
-	make -C ./libft
+	make -C ./libft bonus
 
 clean :
 	make -C ./minilibx clean
