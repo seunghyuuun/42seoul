@@ -42,10 +42,10 @@ int	main(int argc, char **argv)
 	pathcheck(&map);
 	map.mlx = mlx_init();
 	if (!(map.mlx))
-		errorend(&map, ERR_PLAN, "Error\n: init fail\n");
+		errorend(&map, "Error\n: init fail\n");
 	map.win = mlx_new_window(map.mlx, 32 * map.garo, 32 * map.sero, "so_long");
 	if (!(map.win))
-		errorend(&map, ERR_PLAN, "Error\n: new window fail\n");
+		errorend(&map, "Error\n: new window fail\n");
 	newimage(&map);
 	planset(&map, map.mlx, map.win);
 	mlx_key_hook(map.win, &key_hook, &map);

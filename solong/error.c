@@ -24,9 +24,8 @@ void	definederror(void)
 	exit(-1);
 }
 
-void	errorend(t_map *map, int freecode, char *str)
+void	errorend(t_map *map, char *str)
 {
 	free(map->plan);
-	if (freecode == ERR_PLAN)
-		undefinederror(str);
+	undefinederror(str);
 }

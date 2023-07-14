@@ -74,7 +74,7 @@ void	pathcheck(t_map *map)
 		success = pathdfs(map, player, goal, &past);
 		ft_lstclear(&past, &nothing);
 		if (!success)
-			errorend(map, ERR_PLAN, "Error\n: Wrong Map\n");
+			errorend(map, "Error\n: Wrong Map\n");
 		temp = goal + 1;
 		goal = ft_strchr(temp, 'C');
 	}
@@ -82,5 +82,5 @@ void	pathcheck(t_map *map)
 	success = pathdfs(map, player, goal, &past);
 	ft_lstclear(&past, &nothing);
 	if (!success)
-		errorend(map, ERR_PLAN, "Error\n: Wrong Map\n");
+		errorend(map, "Error\n: Wrong Map\n");
 }

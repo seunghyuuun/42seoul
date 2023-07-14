@@ -16,7 +16,7 @@ void	planerror(t_map *map, char *planline, int fd, char *message)
 {
 	free(planline);
 	close(fd);
-	errorend(map, ERR_PLAN, message);
+	errorend(map, message);
 }
 
 size_t	planlinecheck(char *planline, const char *components)
@@ -70,7 +70,7 @@ void	plancheck(t_map *map, int fd)
 	}
 	close(fd);
 	if (!map->plan)
-		errorend(map, ERR_PLAN, "Error\n: Malloc Fail\n");
+		errorend(map, "Error\n: Malloc Fail\n");
 	if (!(planlinecheck(&(map->plan[i2d(map, 0, map->sero - 1)]), "1")))
-		errorend(map, ERR_PLAN, "Error\n: Wrong Map\n");
+		errorend(map, "Error\n: Wrong Map\n");
 }
