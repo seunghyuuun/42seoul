@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:37:51 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/13 17:00:39 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:18:19 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	xbutton(t_map *map)
 {
 	map = 0;
-	ft_printf("end\n");
 	exit(0);
 }
 
@@ -47,7 +46,8 @@ int	main(int argc, char **argv)
 	map.win = mlx_new_window(map.mlx, 32 * map.garo, 32 * map.sero, "so_long");
 	if (!(map.win))
 		errorend(&map, ERR_PLAN, "Error\n: new window fail\n");
-	planset(&map);
+	newimage(&map);
+	planset(&map, map.mlx, map.win);
 	mlx_key_hook(map.win, &key_hook, &map);
 	mlx_hook(map.win, 17, 0, &xbutton, &map);
 	mlx_loop(map.mlx);

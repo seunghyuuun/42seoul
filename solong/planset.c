@@ -32,12 +32,11 @@ void	newimage(t_map *map)
 	map->pnum = 1;
 }
 
-void	planset(t_map *map)
+void	planset(t_map *map, void *mlx, void *win)
 {
 	size_t	g;
 	size_t	s;
 
-	newimage(map);
 	s = 0;
 	while (s < map->sero)
 	{
@@ -45,17 +44,17 @@ void	planset(t_map *map)
 		while (g < map->garo)
 		{
 			if (map->plan[i2d(map, g, s)] == '1')
-				mlx_put_image_to_window(map->mlx, map->win, map->wall, 32 * g, 32 * s);
+				mlx_put_image_to_window(mlx, win, map->wall, 32 * g, 32 * s);
 			else if (map->plan[i2d(map, g, s)] == 'E')
-				mlx_put_image_to_window(map->mlx, map->win, map->exit, 32 * g, 32 * s);
+				mlx_put_image_to_window(mlx, win, map->exit, 32 * g, 32 * s);
 			else
-				mlx_put_image_to_window(map->mlx, map->win, map->empty, 32 * g, 32 * s);
+				mlx_put_image_to_window(mlx, win, map->empty, 32 * g, 32 * s);
 			if (map->plan[i2d(map, g, s)] == 'P')
-				mlx_put_image_to_window(map->mlx, map->win, map->player1, 32 * g, 32 * s);
+				mlx_put_image_to_window(mlx, win, map->player1, 32 * g, 32 * s);
 			else if (map->plan[i2d(map, g, s)] == 'C')
-				mlx_put_image_to_window(map->mlx, map->win, map->collect, 32 * g, 32 * s);
+				mlx_put_image_to_window(mlx, win, map->collect, 32 * g, 32 * s);
 			else if (map->plan[i2d(map, g, s)] == 'X')
-				mlx_put_image_to_window(map->mlx, map->win, map->enemy, 32 * g, 32 * s);
+				mlx_put_image_to_window(mlx, win, map->enemy, 32 * g, 32 * s);
 			g++;
 		}
 		s++;

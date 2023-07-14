@@ -17,21 +17,21 @@ void	updateimage(t_map *map, size_t position, size_t future)
 	size_t	g;
 	size_t	s;
 
-	s = position / map->garo;
-	g = position % map->garo;
-	mlx_put_image_to_window(map->mlx, map->win, map->empty, 32 * g, 32 * s);
+	s = (position / map->garo) * 32;
+	g = (position % map->garo) * 32;
+	mlx_put_image_to_window(map->mlx, map->win, map->empty, g, s);
 	map->plan[position] = '0';
-	s = future / map->garo;
-	g = future % map->garo;
+	s = (future / map->garo) * 32;
+	g = (future % map->garo) * 32;
 	if (map->pnum == 1)
 	{
 		map->pnum = 2;
-		mlx_put_image_to_window(map->mlx, map->win, map->player2, 32 * g, 32 * s);
+		mlx_put_image_to_window(map->mlx, map->win, map->player2, g, s);
 	}
 	else
 	{
 		map->pnum = 1;
-		mlx_put_image_to_window(map->mlx, map->win, map->player1, 32 * g, 32 * s);
+		mlx_put_image_to_window(map->mlx, map->win, map->player1, g, s);
 	}
 	map->plan[future] = 'P';
 }

@@ -55,7 +55,8 @@ size_t	i2d(t_map *map, size_t g, size_t s);
 
 void	plancheck(t_map *map, int fd);
 void	pathcheck(t_map *map);
-void	planset(t_map *map);
+void	planset(t_map *map, void *mlx, void *win);
+void	newimage(t_map *map);
 int		key_hook(int keycode, t_map *map);
 
 void	errorend(t_map *map, int freecode, char *str);
