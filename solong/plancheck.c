@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:57:14 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/13 17:00:22 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:30:51 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,33 @@ void	planerror(t_map *map, char *planline, int fd, char *message)
 size_t	planlinecheck(char *planline, const char *components)
 {
 	size_t			i;
-	static size_t	playercount;
-	static size_t	exitcount;
+	static size_t	plcount;
+	static size_t	excount;
+	static size_t	collcount;
 
-	i = 0;
+	i = -1;
 	if (!planline)
 		return (0);
-	while (planline[i] && planline[i] != '\n')
+	while (planline[++i] && planline[i] != '\n')
 	{
 		if (!(ft_strchr(components, planline[i])))
 			return (0);
 		else if (planline[i] == 'P')
-			playercount++;
+			plcount++;
 		else if (planline[i] == 'E')
-			exitcount++;
-		i++;
+			excount++;
+		else if (planline[i] == 'C')
+			collcount++;
 	}
-	if (i < 3 || playercount > 1 || exitcount > 1)
+	if (!planline[i] && (plcount != 1 || excount != 1 || collcount == 0))
 		return (0);
-	if (planline[0] != '1' || planline[i - 1] != '1')
+	if (i < 3 || planline[0] != '1' || planline[i - 1] != '1')
 		return (0);
 	planline[i] = '\0';
 	return (i);
 }
 
-void	plancheck(t_map *map, int fd)
+void	plancheck(t_map *map, int fd, const char *components)
 {
 	char	*temp;
 	char	*planline;
@@ -59,7 +61,7 @@ void	plancheck(t_map *map, int fd)
 	planline = get_next_line(fd);
 	while (planline)
 	{
-		if (map->garo != planlinecheck(planline, "01CEPX"))
+		if (map->garo != planlinecheck(planline, components))
 			planerror(map, planline, fd, "Error\n: Wrong Map\n");
 		temp = map->plan;
 		map->plan = ft_strjoin(temp, planline);

@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:38:27 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/14 13:32:15 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:57:27 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_list
 
 size_t	i2d(t_map *map, size_t g, size_t s);
 
-void	plancheck(t_map *map, int fd);
+void	plancheck(t_map *map, int fd, const char *components);
 void	pathcheck(t_map *map);
 void	planset(t_map *map, void *mlx, void *win);
 void	newimage(t_map *map);

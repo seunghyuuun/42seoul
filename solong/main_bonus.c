@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 16:37:51 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/17 12:57:47 by seunghy2         ###   ########.fr       */
+/*   Created: 2023/07/17 12:58:14 by seunghy2          #+#    #+#             */
+/*   Updated: 2023/07/17 12:58:16 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		undefinederror("Error\n: standard form: ./so_long Map.ber\n");
-	plancheck(&map, filecheck(argv[1]), "01CEP");
+	plancheck(&map, filecheck(argv[1]), "01CEPX");
 	pathcheck(&map);
 	map.mlx = mlx_init();
 	if (!(map.mlx))
