@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:34:54 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/24 18:56:18 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/24 19:59:16 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 	memset((void *)(&rule), 0, sizeof(t_rule));
 	ruleinit(&rule, argc, argv);
 	philinit(&philist, &rule);
+	pthread_mutex_init(&(rule.notice), 0);
 	i = 0;
 	while (i < rule.num_of_phil)
 	{
