@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:40:51 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/24 18:56:44 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:31:28 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_rule
 	unsigned int	time_to_eat;
 	unsigned int	time_to_sleep;
 	unsigned int	must_eat;
+	unsigned int	dead;
+	unsigned int	end;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	notice;
 	struct timeval	start;
@@ -45,6 +47,9 @@ void	ruleinit(t_rule *rule, int argc, char **argv);
 void	philinit(t_phil **philist, t_rule *rule);
 
 void	*ph_schedul(void *phil);
+void	ph_notice(t_phil *philone, char *str);
+void	*psychopomp(void *ph);
+unsigned int	timegap(struct timeval start, struct timeval present);
 
 void	successend(t_rule *rule);
 void	errorend(t_rule *rule);
