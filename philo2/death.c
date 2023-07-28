@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 15:14:37 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/27 16:47:38 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:44:50 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	*psychopomp(void *ph)
 				rule->dead = 1;
 				return (0);
 			}
-			if (((*philist)[i]).eatnum >= rule->must_eat)
+			if (rule->must_eat && ((*philist)[i]).eatnum >= rule->must_eat)
 				end++;
 			else
 				end = 0;

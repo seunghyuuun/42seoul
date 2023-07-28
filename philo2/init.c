@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:59:25 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/24 18:55:11 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:04:18 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ unsigned int	atou(t_rule *rule, char *str)
 
 void	ruleinit(t_rule *rule, int argc, char **argv)
 {
-	unsigned int	i;
-
 	rule->time_to_die = atou(rule, argv[2]);
 	rule->time_to_eat = atou(rule, argv[3]);
 	rule->time_to_sleep = atou(rule, argv[4]);
@@ -43,16 +41,12 @@ void	ruleinit(t_rule *rule, int argc, char **argv)
 			successend(rule);
 	}
 	rule->num_of_phil = atou(rule, argv[1]);
-	rule->fork = malloc(sizeof(pthread_mutex_t) * rule->num_of_phil);
-	if (!rule->fork)
+	rule->forks = malloc(sizeof(unsigned int) * rule->num_of_phil);
+	if (!rule->forks)
 		errorend(rule);
-	i = 0;
-	while (i < rule->num_of_phil)
-	{
-		if (pthread_mutex_init(&((rule->fork)[i]), 0) == -1)
-			errorend(rule);
-		i++;
-	}
+	memset((void *)(rule->forks), 0, sizeof(unsigned int) * (rule->num_of_phil));
+	if (pthread_mutex_init(&(rule->pick_fork), 0) == -1)
+		errorend(rule);
 	if (pthread_mutex_init(&(rule->notice), 0) == -1)
 		errorend(rule);
 	gettimeofday(&(rule->start), 0);
