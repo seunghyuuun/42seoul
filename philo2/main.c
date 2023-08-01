@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:34:54 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/27 16:30:29 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:08:20 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 		}
 		i++;
 	}
-	pthread_create(&death, 0, &psychopomp, &philist);
+	pthread_create(&death, 0, &endcheck, &philist);
 	while (--i)
 		pthread_join(philist[i].thread, 0);
 	pthread_join(philist[0].thread, 0);

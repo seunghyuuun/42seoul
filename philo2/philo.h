@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:40:51 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/07/28 16:31:05 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:14:59 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ void	philinit(t_phil **philist, t_rule *rule);
 
 void	*ph_schedul(void *phil);
 void	ph_notice(t_phil *philone, char *str);
-void	*psychopomp(void *ph);
+void	*endcheck(void *ph);
 unsigned int	timegap(struct timeval start, struct timeval present);
+void	napping(unsigned int sleep);
 
 void	successend(t_rule *rule);
 void	errorend(t_rule *rule);

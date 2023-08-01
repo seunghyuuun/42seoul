@@ -6,14 +6,14 @@
 #    By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 14:50:53 by seunghy2          #+#    #+#              #
-#    Updated: 2023/07/27 15:46:21 by seunghy2         ###   ########.fr        #
+#    Updated: 2023/08/01 18:13:50 by seunghy2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 NAME=philo
-SRCS=main.c init.c end.c schedul.c death.c
+SRCS=main.c init.c end.c schedul.c utils.c
 BSRCS=a
 
 .PHONY: all clean fclean re bonus
