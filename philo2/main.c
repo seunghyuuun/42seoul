@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:34:54 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/01 18:08:20 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:57:43 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(int argc, char **argv)
 {
 	t_rule			rule;
 	t_phil			*philist;
-	pthread_t		death;
 	unsigned int	i;
 
 	if (argc != 5 && argc != 6)
@@ -35,10 +34,9 @@ int	main(int argc, char **argv)
 		}
 		i++;
 	}
-	pthread_create(&death, 0, &endcheck, &philist);
+	endcheck(philist);
 	while (--i)
 		pthread_join(philist[i].thread, 0);
 	pthread_join(philist[0].thread, 0);
-	pthread_join(death, 0);
 	return (0);
 }

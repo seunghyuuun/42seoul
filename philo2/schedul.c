@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 18:20:10 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/01 19:17:39 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:11:55 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ int	ph_fork(t_phil *philone, int leftright)
 {
 	unsigned int	*forks;
 	unsigned int	index;
+	struct timeval	present;
 
-	if (philone->rule->dead || philone->rule->end)
+	if (philone->rule->end)
 		return (1);
 	forks = philone->rule->forks;
 	index = philone->index;
@@ -31,8 +32,8 @@ int	ph_fork(t_phil *philone, int leftright)
 	}
 	forks[index] = 1;
 	pthread_mutex_unlock(&(philone->rule->pick_fork));
-	ph_notice(philone, "has taken a fork");
-	usleep(1);
+	gettimeofday(&present, 0);
+	ph_notice(philone, present, "has taken a fork");
 	return (1);
 }
 
@@ -47,23 +48,29 @@ void	ph_eat(t_phil *philone)
 	while (!(ph_fork(philone, 0)));
 	(philone->eatnum)++;
 	gettimeofday(&(philone->eat), 0);
-	ph_notice(philone, "is eating");
-	if (!(philone->rule->dead) && !(philone->rule->end))
-		napping(philone->rule->time_to_eat);
+	ph_notice(philone, philone->eat, "is eating");
+	if (!(philone->rule->end))
+		napping(philone->rule->time_to_eat, philone->eat);
 	forks[(index + 1) % philone->rule->num_of_phil] = 0;
 	forks[index] = 0;
 }
 
 void	ph_sleep(t_phil *philone)
 {
-	ph_notice(philone, "is sleeping");
-	if (!(philone->rule->dead) && !(philone->rule->end))
-		napping(philone->rule->time_to_sleep);
+	struct timeval	present;
+
+	gettimeofday(&present, 0);
+	ph_notice(philone, present, "is sleeping");
+	if (!(philone->rule->end))
+		napping(philone->rule->time_to_sleep, present);
 }
 
 void	ph_think(t_phil *philone)
 {
-	ph_notice(philone, "is thinking");
+	struct timeval	present;
+
+	gettimeofday(&present, 0);
+	ph_notice(philone, present, "is thinking");
 }
 
 void	*ph_schedul(void *phil)
@@ -78,13 +85,13 @@ void	*ph_schedul(void *phil)
 	ph[0] = ph_eat;
 	ph[1] = ph_sleep;
 	ph[2] = ph_think;
-	if ((philone->index) % 2 == 0)
-		napping((philone->rule->time_to_eat) / 10);
+	if (philone->index % 2 == 1)
+		napping((philone->rule->time_to_eat), philone->rule->start);
 	while (keepgo)
 	{
 		keepgo = 0;
 		i = 0;
-		while (i < 3 && !(philone->rule->dead) && !(philone->rule->end))
+		while (i < 3 && !(philone->rule->end))
 		{
 			ph[i](philone);
 			i++;
