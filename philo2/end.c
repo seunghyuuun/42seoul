@@ -6,23 +6,21 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:40:13 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/02 15:02:51 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/05 17:57:23 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	errorend(t_rule *rule)
+int	allfree(t_rule *rule, int mutexinit, t_phil *philist)
 {
 	free(rule->forks);
-	write(2, "Error\n", 6);
-	exit (-1);
-}
-
-void	successend(t_rule *rule)
-{
-	free(rule->forks);
-	exit(0);
+	if (mutexinit == 2)
+		pthread_mutex_destroy(&(rule->notice));
+	if (mutexinit)
+		pthread_mutex_destroy(&(rule->pick_fork));
+	free(philist);
+	return (-1);
 }
 
 void	deadcheck(t_phil *philone)
@@ -34,7 +32,9 @@ void	deadcheck(t_phil *philone)
 	rule = philone->rule;
 	gettimeofday(&present, 0);
 	gap = timegap(philone->eat, present);
-	if (gap > rule->time_to_die)
+	if (gap && gap % 1000 == 0)
+		gap = timegap(philone->eat, present);
+	if (gap > (rule->time_to_die))
 	{
 		ph_notice(philone, present, "is dead");
 		rule->end = 1;

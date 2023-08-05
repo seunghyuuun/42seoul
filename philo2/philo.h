@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:40:51 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/02 15:10:19 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/05 17:47:07 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,12 @@ typedef struct s_phil
 	t_rule			*rule;
 }	t_phil;
 
-void	ruleinit(t_rule *rule, int argc, char **argv);
-void	philinit(t_phil **philist, t_rule *rule);
-
-void	*ph_schedul(void *phil);
-void	ph_notice(t_phil *philone, struct timeval present, char *str);
-void	endcheck(t_phil *philist);
+int				ph_initial(int argc, char **argv, t_rule *rule, t_phil **list);
+void			*ph_schedul(void *phil);
+void			ph_notice(t_phil *philone, struct timeval present, char *str);
+void			endcheck(t_phil *philist);
 unsigned int	timegap(struct timeval start, struct timeval present);
-void	napping(unsigned int sleep, struct timeval start);
-
-void	successend(t_rule *rule);
-void	errorend(t_rule *rule);
+void			napping(unsigned int sleep, struct timeval start);
+int				allfree(t_rule *rule, int mutexinit, t_phil *philist);
 
 #endif
