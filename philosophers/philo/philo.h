@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:40:51 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/05 17:47:07 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/08 15:36:48 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void			*ph_schedul(void *phil);
 void			ph_notice(t_phil *philone, struct timeval present, char *str);
 void			endcheck(t_phil *philist);
 unsigned int	timegap(struct timeval start, struct timeval present);
-void			napping(unsigned int sleep, struct timeval start);
+void			napping(unsigned int sleep, struct timeval start, \
+		t_phil *philone);
 int				allfree(t_rule *rule, int mutexinit, t_phil *philist);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 18:20:10 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/07 14:41:12 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/08/08 15:37:29 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ void	ph_eat(t_phil *philone)
 	(philone->eatnum)++;
 	gettimeofday(&(philone->eat), 0);
 	ph_notice(philone, philone->eat, "is eating");
-	if (!(philone->rule->end))
-		napping(philone->rule->time_to_eat, philone->eat);
+	napping(philone->rule->time_to_eat, philone->eat, philone);
 	forks[(index + 1) % philone->rule->num_of_phil] = 0;
 	forks[index] = 0;
 }
@@ -63,8 +62,7 @@ void	ph_sleep(t_phil *philone)
 
 	gettimeofday(&present, 0);
 	ph_notice(philone, present, "is sleeping");
-	if (!(philone->rule->end))
-		napping(philone->rule->time_to_sleep, present);
+	napping(philone->rule->time_to_sleep, present, philone);
 }
 
 void	ph_think(t_phil *philone)
@@ -88,7 +86,7 @@ void	*ph_schedul(void *phil)
 	ph[1] = ph_sleep;
 	ph[2] = ph_think;
 	if (philone->index % 2 == 1)
-		napping((philone->rule->time_to_eat), philone->rule->start);
+		napping((philone->rule->time_to_eat), philone->rule->start, philone);
 	while (keepgo)
 	{
 		keepgo = 0;
