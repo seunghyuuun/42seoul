@@ -1,0 +1,29 @@
+Philosophers bonus
+
+필로 당 쓰레드 생성.
+쓰레드 내에서 프로세스 생성, 먹어야 하는 횟수 충족시 끝내기.
+끝난 필로 인원 1추가.
+끝난 필로 인원이 꽉 찰 때까지 돌릴 프로세스 생성.
+인원 꽉차서 or 누군가 죽어서 rule->end 가 생성될 시 kill 로 프로세스 강제 종료.
+메모리 누수 관리.
+
+추가된 함수
+Fork, kill, exit, waited
+sem_open , sem_close , sem_post , sem_wait , sem_unlink
+
+빠진 함수
+mutex_ (init destroy lock unlock)
+
+sem_t *sem_open(
+Const char *name : “/aaa” 형태. /dev/sem 에 생성
+Int flag : O_CREAT | O_EXCL
+mode_t mode : 0666 0644 과 같이 설정가능
+Unsigned int value : 몇개의 프로세스가 동시에?
+)
+Int sem_close (sem_t *)
+Int sem_unlink(const char *name) : close가 자동으로 되지는 않는다.
+sem_wait — sem_post
+Int kill (
+pid_t pid : 프로세스아이디
+Int sig : 보낼 시그널의 종류를 나타내는 정수 값입니다. 시그널 번호는 signal.h 헤더 파일에 상수로 정의되어 있습니다. 가장 일반적인 시그널로는 SIGTERM (프로세스 종료 시그널)이나 SIGKILL (프로세스 강제 종료 시그널) 등이 있습니다.
+)
