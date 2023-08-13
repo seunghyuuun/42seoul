@@ -22,11 +22,18 @@ void	envseparate(char *nv, char **name, char **value)
 t_env	*envsearch(t_env *envlst, char *name)
 {
 	t_env	*temp;
-	size_t	namelen;
 
 	temp = envlst;
-	namelen = ft_strlen(name);
-	while (temp && ft_strncmp(temp->name, name, namelen))
+	while (temp && ft_strcmp(temp->name, name))
 		temp = temp->next;
 	return (temp);
+}
+
+void	envfree(t_env *node)
+{
+	if (!node)
+		return ;
+	free(node->name);
+	free(node->value);
+	free(node);
 }

@@ -2,7 +2,7 @@ CC=cc
 CFLAGS=-Wall -Wextra -Werror
 NAME=minishell
 LIB=libft/libft.a
-SRCS=main.c envset.c
+SRCS=main.c envset.c envutil.c
 BSRCS=main_bonus.c
 
 .PHONY: all clean fclean re bonus

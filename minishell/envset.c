@@ -1,4 +1,4 @@
-#include "envset.h"
+#include "env.h"
 
 // 할당 실패 시 에러처리 추가 필요
 
@@ -22,31 +22,49 @@ t_env	*envlist(char **envp)
 	return (result);
 }
 
-int	envedit(t_env *envlst, char *nv)
+void	envadd(t_env **envlst, char *nv)
 {
 	t_env	*envedit;
 	char	*name;
 	char	*value;
 
 	envseparate(nv, &name, &value);
-	envedit = envsearch(envlst, name);
-	free(name);
-	if (!envedit)
+	envedit = envsearch(*envlst, name);
+	if (envedit)
 	{
-		free(value);
-		return (-1);
+		free(name);
+		free(envedit->value);
+		envedit->value = value;
 	}
-	free(envedit->value);
-	envedit->value = value;
-	return (0);
+	else
+	{
+		envedit = *envlst;
+		*envlst = (t_env *)malloc(sizeof(t_env));
+		(*envlst)->name = name;
+		(*envlst)->value = value;
+		(*envlst)->next = envedit;
+	}
 }
 
-void	envadd(t_env **envlst, char *nv)
+void	envdelete(t_env **envlst, char *name)
 {
-	t_env	*temp;
+	t_env	*temp1;
+	t_env	*temp2;
 
-	temp = *envlst;
-	*envlst = (t_env *)malloc(sizeof(t_env));
-	nodeinit(*envlst, nv);
-	(*envlst)->next = temp;
+	temp1 = *envlst;
+	if (!temp1)
+		return ;
+	else if (!(ft_strcmp(temp1->name, name)))
+	{
+		envfree(temp1);
+		*envlst = 0;
+		return ;
+	}
+	while (temp1->next && ft_strcmp(temp1->next->name, name))
+		temp1 = temp1->next;
+	if (!(temp1->next))
+		return ;
+	temp2 = temp1->next->next;
+	envfree(temp1->next);
+	temp1->next = temp2;
 }
