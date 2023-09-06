@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 18:20:10 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/08 15:37:29 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:54:54 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ int	ph_fork(t_phil *philone, int leftright)
 {
 	unsigned int	*forks;
 	unsigned int	index;
-	struct timeval	present;
 
-	if (philone->rule->end)
+	if (endmutexcheck(philone->rule))
 		return (1);
 	forks = philone->rule->forks;
 	index = philone->index;
@@ -32,8 +31,7 @@ int	ph_fork(t_phil *philone, int leftright)
 	}
 	forks[index] = 1;
 	pthread_mutex_unlock(&(philone->rule->pick_fork));
-	gettimeofday(&present, 0);
-	ph_notice(philone, present, "has taken a fork");
+	ph_notice(philone, "has taken a fork");
 	return (1);
 }
 
@@ -41,6 +39,7 @@ void	ph_eat(t_phil *philone)
 {
 	unsigned int	index;
 	unsigned int	*forks;
+	struct timeval	eattime;
 
 	index = philone->index;
 	forks = philone->rule->forks;
@@ -48,12 +47,19 @@ void	ph_eat(t_phil *philone)
 		;
 	while (!(ph_fork(philone, 0)))
 		;
+	pthread_mutex_lock(&(philone->eatmutex));
 	(philone->eatnum)++;
 	gettimeofday(&(philone->eat), 0);
-	ph_notice(philone, philone->eat, "is eating");
-	napping(philone->rule->time_to_eat, philone->eat, philone);
+	eattime = philone->eat;
+	pthread_mutex_unlock(&(philone->eatmutex));
+	ph_notice(philone, "is eating");
+	napping(philone->rule->time_to_eat, eattime, philone);
+	pthread_mutex_lock(&(philone->rule->pick_fork));
 	forks[(index + 1) % philone->rule->num_of_phil] = 0;
+	pthread_mutex_unlock(&(philone->rule->pick_fork));
+	pthread_mutex_lock(&(philone->rule->pick_fork));
 	forks[index] = 0;
+	pthread_mutex_unlock(&(philone->rule->pick_fork));
 }
 
 void	ph_sleep(t_phil *philone)
@@ -61,16 +67,13 @@ void	ph_sleep(t_phil *philone)
 	struct timeval	present;
 
 	gettimeofday(&present, 0);
-	ph_notice(philone, present, "is sleeping");
+	ph_notice(philone, "is sleeping");
 	napping(philone->rule->time_to_sleep, present, philone);
 }
 
 void	ph_think(t_phil *philone)
 {
-	struct timeval	present;
-
-	gettimeofday(&present, 0);
-	ph_notice(philone, present, "is thinking");
+	ph_notice(philone, "is thinking");
 }
 
 void	*ph_schedul(void *phil)
@@ -91,7 +94,7 @@ void	*ph_schedul(void *phil)
 	{
 		keepgo = 0;
 		i = 0;
-		while (i < 3 && !(philone->rule->end))
+		while (i < 3 && !(endmutexcheck(philone->rule)))
 		{
 			ph[i](philone);
 			i++;

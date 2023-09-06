@@ -6,21 +6,21 @@
 #    By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 14:50:53 by seunghy2          #+#    #+#              #
-#    Updated: 2023/08/07 14:56:50 by seunghy2         ###   ########.fr        #
+#    Updated: 2023/09/06 13:35:05 by seunghy2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 NAME=philo
-SRCS=main.c init.c end.c schedul.c utils.c
+SRCS=main.c init.c end.c schedul.c utils.c mutex.c
 
 .PHONY: all clean fclean re
 
 all : $(NAME)
 
 $(NAME) : $(SRCS) philo.h
-	$(CC) $(CFLAGS) -o $(NAME) $(SRCS)
+	$(CC) $(CFLAGS) -o $(NAME) $(SRCS) -fsanitize=thread
 
 clean :
 	rm -f *.o

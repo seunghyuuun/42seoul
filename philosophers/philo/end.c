@@ -6,21 +6,48 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:40:13 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/05 17:57:23 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:25:10 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	allfree(t_rule *rule, int mutexinit, t_phil *philist)
+int	allfree(t_rule *rule, int mutexinit, t_phil *philist, unsigned int mi)
 {
+	unsigned int	i;
+
 	free(rule->forks);
-	if (mutexinit == 2)
+	if (mutexinit > 2)
+		pthread_mutex_destroy(&(rule->endmutex));
+	if (mutexinit > 1)
 		pthread_mutex_destroy(&(rule->notice));
 	if (mutexinit)
 		pthread_mutex_destroy(&(rule->pick_fork));
+	if (!philist)
+		return (-1);
+	i = 0;
+	while (i < mi)
+	{
+		pthread_mutex_destroy(&(philist[i].eatmutex));
+		i++;
+	}
 	free(philist);
 	return (-1);
+}
+
+unsigned int	eatnumcheck(t_phil *philist, unsigned int i)
+{
+	t_rule	*rule;
+
+	rule = philist->rule;
+	pthread_mutex_lock(&(philist[i].eatmutex));
+	if ((philist[i]).eatnum >= rule->must_eat)
+	{
+		pthread_mutex_unlock(&(philist[i].eatmutex));
+		return (1);
+	}
+	pthread_mutex_unlock(&(philist[i].eatmutex));
+	return (0);
 }
 
 void	deadcheck(t_phil *philone)
@@ -31,13 +58,13 @@ void	deadcheck(t_phil *philone)
 
 	rule = philone->rule;
 	gettimeofday(&present, 0);
+	pthread_mutex_lock(&(philone->eatmutex));
 	gap = timegap(philone->eat, present);
-	if (gap && gap % 1000 == 0)
-		gap = timegap(philone->eat, present);
+	pthread_mutex_unlock(&(philone->eatmutex));
 	if (gap > (rule->time_to_die))
 	{
-		ph_notice(philone, present, "is dead");
-		rule->end = 1;
+		ph_notice(philone, "is dead");
+		endmutexchange(rule);
 	}
 }
 
@@ -49,15 +76,15 @@ void	endcheck(t_phil *philist)
 
 	rule = philist->rule;
 	end = 0;
-	while (!(rule->end))
+	while (!(endmutexcheck(rule)))
 	{
 		i = 0;
-		while (!(rule->end) && i < rule->num_of_phil)
+		while (!(endmutexcheck(rule)) && i < rule->num_of_phil)
 		{
 			if (end == rule->num_of_phil)
-				rule->end = 1;
-			else if (rule->must_eat && (philist[i]).eatnum >= rule->must_eat)
-				end++;
+				endmutexchange(rule);
+			else if (rule->must_eat)
+				end += eatnumcheck(philist, i);
 			else
 				end = 0;
 			deadcheck(&(philist[i]));

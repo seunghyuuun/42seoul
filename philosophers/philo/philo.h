@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:40:51 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/08 15:36:48 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:30:05 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_rule
 	unsigned int	*forks;
 	pthread_mutex_t	pick_fork;
 	pthread_mutex_t	notice;
+	pthread_mutex_t	endmutex;
 	struct timeval	start;
 }	t_rule;
 
@@ -40,16 +41,20 @@ typedef struct s_phil
 	unsigned int	index;
 	unsigned int	eatnum;
 	struct timeval	eat;
+	pthread_mutex_t	eatmutex;
 	t_rule			*rule;
 }	t_phil;
 
 int				ph_initial(int argc, char **argv, t_rule *rule, t_phil **list);
 void			*ph_schedul(void *phil);
-void			ph_notice(t_phil *philone, struct timeval present, char *str);
+void			ph_notice(t_phil *philone, char *str);
 void			endcheck(t_phil *philist);
 unsigned int	timegap(struct timeval start, struct timeval present);
 void			napping(unsigned int sleep, struct timeval start, \
 		t_phil *philone);
-int				allfree(t_rule *rule, int mutexinit, t_phil *philist);
+int				allfree(t_rule *rule, int mutexinit, \
+		t_phil *philist, unsigned int mi);
+int				endmutexcheck(t_rule *rule);
+void			endmutexchange(t_rule *rule);
 
 #endif

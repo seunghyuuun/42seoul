@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:34:54 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/07 14:08:41 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:56:58 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	{
 		if (pthread_create(&(philist[i].thread), 0, &ph_schedul, &(philist[i])))
 		{
-			rule.end = 1;
+			endmutexchange(&rule);
 			break ;
 		}
 		i++;
@@ -36,6 +36,6 @@ int	main(int argc, char **argv)
 	while (--i)
 		pthread_join(philist[i].thread, 0);
 	pthread_join(philist[0].thread, 0);
-	allfree(&rule, 2, philist);
+	allfree(&rule, 3, philist, rule.num_of_phil);
 	return (0);
 }

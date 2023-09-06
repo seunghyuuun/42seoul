@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:59:25 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/07 14:40:51 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:11:37 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,6 @@ int	ruleinit(t_rule *rule, int argc, char **argv)
 		return (-1);
 	memset((void *)(rule->forks), 0, \
 			sizeof(unsigned int) * (rule->num_of_phil));
-	if (pthread_mutex_init(&(rule->pick_fork), 0) == -1)
-		return (allfree(rule, 0, 0));
-	if (pthread_mutex_init(&(rule->notice), 0) == -1)
-		return (allfree(rule, 1, 0));
 	gettimeofday(&(rule->start), 0);
 	return (0);
 }
@@ -65,7 +61,7 @@ int	philinit(t_phil **philist, t_rule *rule)
 
 	*philist = (t_phil *)malloc(sizeof(t_phil) * rule->num_of_phil);
 	if (!(*philist))
-		return (allfree(rule, 2, 0));
+		return (allfree(rule, 3, 0, 0));
 	i = 0;
 	while (i < rule->num_of_phil)
 	{
@@ -73,6 +69,8 @@ int	philinit(t_phil **philist, t_rule *rule)
 		((*philist)[i]).eat = rule->start;
 		((*philist)[i]).rule = rule;
 		((*philist)[i]).eatnum = 0;
+		if (pthread_mutex_init(&(((*philist)[i]).eatmutex), 0) == -1)
+			return (allfree(rule, 3, *philist, i));
 		i++;
 	}
 	return (0);
@@ -82,6 +80,12 @@ int	ph_initial(int argc, char **argv, t_rule *rule, t_phil **list)
 {
 	if (ruleinit(rule, argc, argv))
 		return (-1);
+	if (pthread_mutex_init(&(rule->pick_fork), 0) == -1)
+		return (allfree(rule, 0, 0, 0));
+	if (pthread_mutex_init(&(rule->notice), 0) == -1)
+		return (allfree(rule, 1, 0, 0));
+	if (pthread_mutex_init(&(rule->endmutex), 0) == -1)
+		return (allfree(rule, 2, 0, 0));
 	if (philinit(list, rule))
 		return (-1);
 	return (0);
