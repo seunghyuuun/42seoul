@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:40:13 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 13:25:10 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:38:47 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,12 @@ void	endcheck(t_phil *philist)
 			if (end == rule->num_of_phil)
 				endmutexchange(rule);
 			else if (rule->must_eat)
-				end += eatnumcheck(philist, i);
-			else
-				end = 0;
+			{
+				if (eatnumcheck(philist, i))
+					end++;
+				else
+					end = 0;
+			}
 			deadcheck(&(philist[i]));
 			i++;
 		}
