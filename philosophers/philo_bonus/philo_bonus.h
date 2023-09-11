@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:11:50 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/08 14:58:35 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:09:32 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 # define SFORK "/philobonusfork"
 # define SNOTICE "/philobonusnotice"
+# define SUCCESS 0
+# define EATDONE 1
+# define DEAD 2
 
 typedef struct s_rule
 {
@@ -31,7 +34,10 @@ typedef struct s_rule
 	unsigned int	time_to_sleep;
 	unsigned int	must_eat;
 	unsigned int	end;
+	pid_t			*phils;
 	struct timeval	start;
+	sem_t			*forks;
+	sem_t			*notice;
 }	t_rule;
 
 #endif

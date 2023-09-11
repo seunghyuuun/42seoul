@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:28:12 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/08/08 15:04:13 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:11:40 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ unsigned int	atou(char *str)
 	return (result);
 }
 
-void	ruleinit(t_rule *rule, int argc, char **argv)
+int	ruleinit(t_rule *rule, int argc, char **argv)
 {
 	memset((void *)rule, 0, sizeof(t_rule));
 	rule->time_to_die = atou(argv[2]);
@@ -43,5 +43,11 @@ void	ruleinit(t_rule *rule, int argc, char **argv)
 			rule->end = 1;
 	}
 	rule->num_of_phil = atou(argv[1]);
+	phils = (pid_t *)malloc(sizeof(pid_t) * rule->num_of_phil);
+	if (!phils)
+		return (-1);
+	rule->forks = sem_open(SFORK, O_CREAT, 0666, rule->num_of_phil);
+	rule->notice = sem_open(SNOTICE, O_CREAT, 0666, 1);
 	gettimeofday(&(rule->start), 0);
+	return (0);
 }

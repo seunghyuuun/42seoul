@@ -6,7 +6,7 @@
 #    By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 14:50:53 by seunghy2          #+#    #+#              #
-#    Updated: 2023/09/06 13:35:05 by seunghy2         ###   ########.fr        #
+#    Updated: 2023/09/06 14:42:21 by seunghy2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS=main.c init.c end.c schedul.c utils.c mutex.c
 all : $(NAME)
 
 $(NAME) : $(SRCS) philo.h
-	$(CC) $(CFLAGS) -o $(NAME) $(SRCS) -fsanitize=thread
+	$(CC) $(CFLAGS) -o $(NAME) $(SRCS)
 
 clean :
 	rm -f *.o
