@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:40:13 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 14:38:47 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:19:02 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	deadcheck(t_phil *philone)
 	pthread_mutex_unlock(&(philone->eatmutex));
 	if (gap > (rule->time_to_die))
 	{
-		ph_notice(philone, "is dead");
 		endmutexchange(rule);
+		ph_notice(philone, "is dead");
 	}
 }
 

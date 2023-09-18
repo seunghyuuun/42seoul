@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:59:25 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 13:11:37 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:26:09 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ int	ruleinit(t_rule *rule, int argc, char **argv)
 			rule->end = 1;
 	}
 	rule->num_of_phil = atou(argv[1], &error);
+	if (error)
+		return (-1);
 	rule->forks = malloc(sizeof(unsigned int) * rule->num_of_phil);
-	if (!rule->forks || error)
+	if (!(rule->forks))
 		return (-1);
 	memset((void *)(rule->forks), 0, \
 			sizeof(unsigned int) * (rule->num_of_phil));

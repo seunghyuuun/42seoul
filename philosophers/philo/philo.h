@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:40:51 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 13:30:05 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:34:39 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void			napping(unsigned int sleep, struct timeval start, \
 		t_phil *philone);
 int				allfree(t_rule *rule, int mutexinit, \
 		t_phil *philist, unsigned int mi);
-int				endmutexcheck(t_rule *rule);
+unsigned int	endmutexcheck(t_rule *rule);
 void			endmutexchange(t_rule *rule);
 
 #endif

@@ -6,15 +6,15 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:14:41 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 13:30:46 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:34:22 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	endmutexcheck(t_rule *rule)
+unsigned int	endmutexcheck(t_rule *rule)
 {
-	int	result;
+	unsigned int	result;
 
 	pthread_mutex_lock(&(rule->endmutex));
 	result = rule->end;

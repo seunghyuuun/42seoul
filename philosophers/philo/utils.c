@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:13:41 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 14:22:11 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:18:28 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,36 @@ unsigned int	timegap(struct timeval start, struct timeval present)
 void	napping(unsigned int sleep, struct timeval start, t_phil *philone)
 {
 	unsigned int	gap;
+	unsigned int	tmp;
 	struct timeval	present;
 
 	gap = 0;
 	while (!(endmutexcheck(philone->rule)) && gap < sleep)
 	{
-		usleep(200);
+		tmp = (sleep - gap) / 3;
+		if (tmp > 2)
+			usleep(tmp * 1000);
+		else
+			usleep(200);
 		gettimeofday(&present, 0);
 		gap = timegap(start, present);
 	}
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+	int		c;
+
+	i = 0;
+	while (s1[i] != 0 || s2[i] != 0)
+	{
+		c = (unsigned char)s1[i] - (unsigned char)s2[i];
+		if (c)
+			return (c);
+		i++;
+	}
+	return (0);
 }
 
 void	ph_notice(t_phil *philone, char *str)
@@ -47,13 +68,13 @@ void	ph_notice(t_phil *philone, char *str)
 	struct timeval	start;
 	struct timeval	present;
 
-	if (endmutexcheck(philone->rule))
+	if (ft_strcmp(str, "is dead") && endmutexcheck(philone->rule))
 		return ;
 	start = philone->rule->start;
 	pthread_mutex_lock(&(philone->rule->notice));
 	gettimeofday(&present, 0);
 	gap = timegap(start, present);
-	if (!(endmutexcheck(philone->rule)))
+	if (!(ft_strcmp(str, "is dead")) || !(endmutexcheck(philone->rule)))
 		printf("%u %u %s\n", gap, (philone->index) + 1, str);
 	pthread_mutex_unlock(&(philone->rule->notice));
 }
