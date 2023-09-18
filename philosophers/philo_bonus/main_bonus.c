@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:11:09 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 17:19:07 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:44:43 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_rule	rule;
+	t_rule			rule;
 	unsigned int	i;
 	unsigned int	parentflag;
 
