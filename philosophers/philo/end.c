@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:40:13 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/18 19:19:02 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:28:52 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ unsigned int	eatnumcheck(t_phil *philist, unsigned int i)
 	return (0);
 }
 
-void	deadcheck(t_phil *philone)
+int	deadcheck(t_phil *philone)
 {
 	struct timeval	present;
 	unsigned int	gap;
@@ -65,7 +65,9 @@ void	deadcheck(t_phil *philone)
 	{
 		endmutexchange(rule);
 		ph_notice(philone, "is dead");
+		return (1);
 	}
+	return (0);
 }
 
 void	endcheck(t_phil *philist)
@@ -79,7 +81,7 @@ void	endcheck(t_phil *philist)
 	while (!(endmutexcheck(rule)))
 	{
 		i = 0;
-		while (!(endmutexcheck(rule)) && i < rule->num_of_phil)
+		while (i < rule->num_of_phil)
 		{
 			if (end == rule->num_of_phil)
 				endmutexchange(rule);
@@ -90,7 +92,8 @@ void	endcheck(t_phil *philist)
 				else
 					end = 0;
 			}
-			deadcheck(&(philist[i]));
+			if (end == (rule->num_of_phil) + 1 || deadcheck(&(philist[i])))
+				return ;
 			i++;
 		}
 	}

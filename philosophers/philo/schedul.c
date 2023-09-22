@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 18:20:10 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 13:54:54 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:02:54 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	ph_eat(t_phil *philone)
 		;
 	while (!(ph_fork(philone, 0)))
 		;
+	if (endmutexcheck(philone->rule))
+		return ;
 	pthread_mutex_lock(&(philone->eatmutex));
 	(philone->eatnum)++;
 	gettimeofday(&(philone->eat), 0);

@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:13:41 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/18 19:18:28 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:47:52 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	napping(unsigned int sleep, struct timeval start, t_phil *philone)
 	while (!(endmutexcheck(philone->rule)) && gap < sleep)
 	{
 		tmp = (sleep - gap) / 3;
-		if (tmp > 2)
+		if (tmp > 1)
 			usleep(tmp * 1000);
 		else
-			usleep(200);
+			usleep(300);
 		gettimeofday(&present, 0);
 		gap = timegap(start, present);
 	}
@@ -72,6 +72,11 @@ void	ph_notice(t_phil *philone, char *str)
 		return ;
 	start = philone->rule->start;
 	pthread_mutex_lock(&(philone->rule->notice));
+	if (endmutexcheck(philone->rule) && ft_strcmp(str, "is dead"))
+	{
+		pthread_mutex_unlock(&(philone->rule->notice));
+		return ;
+	}
 	gettimeofday(&present, 0);
 	gap = timegap(start, present);
 	if (!(ft_strcmp(str, "is dead")) || !(endmutexcheck(philone->rule)))
