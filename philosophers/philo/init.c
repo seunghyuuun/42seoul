@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:59:25 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/10/04 15:57:19 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:59:15 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	ruleinit(t_rule *rule, int argc, char **argv)
 		return (-1);
 	memset((void *)(rule->forks), 0, \
 			sizeof(t_fork) * (rule->num_of_phil));
-	gettimeofday(&(rule->start), 0);
 	return (0);
 }
 
@@ -70,7 +69,6 @@ int	philinit(t_phil **philist, t_rule *rule)
 	while (i < rule->num_of_phil)
 	{
 		((*philist)[i]).index = i;
-		((*philist)[i]).eat = rule->start;
 		((*philist)[i]).rule = rule;
 		((*philist)[i]).eatnum = 0;
 		if (pthread_mutex_init(&(((*philist)[i]).eatmutex), 0) == -1)

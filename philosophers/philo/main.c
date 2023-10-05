@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:34:54 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/06 13:56:58 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:47:17 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char **argv)
 		}
 		i++;
 	}
+	gettimeofday(&(rule.start), 0);
 	endcheck(philist);
 	while (--i)
 		pthread_join(philist[i].thread, 0);

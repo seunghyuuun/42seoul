@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:40:13 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/30 11:00:30 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:59:08 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	deadcheck(t_phil *philone)
 	rule = philone->rule;
 	gettimeofday(&present, 0);
 	pthread_mutex_lock(&(philone->eatmutex));
+	if (!((philone->eat).tv_sec))
+		philone->eat = rule->start;
 	gap = timegap(philone->eat, present);
 	pthread_mutex_unlock(&(philone->eatmutex));
 	if (gap > (rule->time_to_die))

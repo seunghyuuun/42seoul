@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 18:20:10 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/10/05 15:50:08 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:59:57 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	ph_eat(t_phil *philone)
 		;
 	if (endmutexcheck(philone->rule))
 		return ;
-	ph_notice(philone, "is eating");
 	pthread_mutex_lock(&(philone->eatmutex));
+	ph_notice(philone, "is eating");
 	(philone->eatnum)++;
 	gettimeofday(&(philone->eat), 0);
 	eattime = philone->eat;
@@ -83,26 +83,25 @@ void	*ph_schedul(void *phil)
 	t_phil			*philone;
 	void			(*ph[3])(t_phil *);
 	unsigned int	i;
-	unsigned int	keepgo;
 
 	philone = (t_phil *)phil;
-	keepgo = 1;
 	ph[0] = ph_eat;
 	ph[1] = ph_sleep;
 	ph[2] = ph_think;
+	while (!((philone->rule->start).tv_sec))
+		;
 	if (philone->index % 2 == 1)
 		napping((philone->rule->time_to_eat), philone->rule->start, philone);
-	while (keepgo)
+	while (1)
 	{
-		keepgo = 0;
 		i = 0;
 		while (i < 3 && !(endmutexcheck(philone->rule)))
 		{
 			ph[i](philone);
 			i++;
 		}
-		if (i == 3)
-			keepgo = 1;
+		if (i != 3)
+			break ;
 	}
 	return (0);
 }
