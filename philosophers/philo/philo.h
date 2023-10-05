@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:40:51 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/18 18:34:39 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:01:19 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <sys/time.h>
 # include <stdio.h>
 
+typedef struct s_fork
+{
+	unsigned int	fkuse;
+	pthread_mutex_t	fkmtx;
+}	t_fork;
+
 typedef struct s_rule
 {
 	unsigned int	num_of_phil;
@@ -28,8 +34,7 @@ typedef struct s_rule
 	unsigned int	time_to_sleep;
 	unsigned int	must_eat;
 	unsigned int	end;
-	unsigned int	*forks;
-	pthread_mutex_t	pick_fork;
+	t_fork			*forks;
 	pthread_mutex_t	notice;
 	pthread_mutex_t	endmutex;
 	struct timeval	start;
@@ -56,5 +61,7 @@ int				allfree(t_rule *rule, int mutexinit, \
 		t_phil *philist, unsigned int mi);
 unsigned int	endmutexcheck(t_rule *rule);
 void			endmutexchange(t_rule *rule);
+void			forkmutexdestroy(t_rule *rule, unsigned int end);
+int				forkmutexset(t_rule *rule);
 
 #endif

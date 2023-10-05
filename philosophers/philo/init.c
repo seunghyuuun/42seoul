@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:59:25 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/18 18:26:09 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:57:19 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,15 @@ int	ruleinit(t_rule *rule, int argc, char **argv)
 			rule->end = 1;
 	}
 	rule->num_of_phil = atou(argv[1], &error);
+	if (!(rule->num_of_phil))
+		error = -1;
 	if (error)
 		return (-1);
-	rule->forks = malloc(sizeof(unsigned int) * rule->num_of_phil);
+	rule->forks = malloc(sizeof(t_fork) * rule->num_of_phil);
 	if (!(rule->forks))
 		return (-1);
 	memset((void *)(rule->forks), 0, \
-			sizeof(unsigned int) * (rule->num_of_phil));
+			sizeof(t_fork) * (rule->num_of_phil));
 	gettimeofday(&(rule->start), 0);
 	return (0);
 }
@@ -82,7 +84,7 @@ int	ph_initial(int argc, char **argv, t_rule *rule, t_phil **list)
 {
 	if (ruleinit(rule, argc, argv))
 		return (-1);
-	if (pthread_mutex_init(&(rule->pick_fork), 0) == -1)
+	if (forkmutexset(rule) == -1)
 		return (allfree(rule, 0, 0, 0));
 	if (pthread_mutex_init(&(rule->notice), 0) == -1)
 		return (allfree(rule, 1, 0, 0));

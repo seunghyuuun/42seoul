@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:40:13 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/22 13:28:52 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:00:30 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	allfree(t_rule *rule, int mutexinit, t_phil *philist, unsigned int mi)
 {
 	unsigned int	i;
 
-	free(rule->forks);
 	if (mutexinit > 2)
 		pthread_mutex_destroy(&(rule->endmutex));
 	if (mutexinit > 1)
 		pthread_mutex_destroy(&(rule->notice));
 	if (mutexinit)
-		pthread_mutex_destroy(&(rule->pick_fork));
+		forkmutexdestroy(rule, rule->num_of_phil);
+	free(rule->forks);
 	if (!philist)
 		return (-1);
 	i = 0;

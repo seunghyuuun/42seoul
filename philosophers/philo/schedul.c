@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 18:20:10 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/09/22 13:02:54 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:50:08 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ph_fork(t_phil *philone, int leftright)
 {
-	unsigned int	*forks;
+	t_fork			*forks;
 	unsigned int	index;
 
 	if (endmutexcheck(philone->rule))
@@ -23,14 +23,14 @@ int	ph_fork(t_phil *philone, int leftright)
 	index = philone->index;
 	if (!leftright)
 		index = (index + 1) % philone->rule->num_of_phil;
-	pthread_mutex_lock(&(philone->rule->pick_fork));
-	if (forks[index])
+	pthread_mutex_lock(&((forks[index]).fkmtx));
+	if ((forks[index]).fkuse)
 	{
-		pthread_mutex_unlock(&(philone->rule->pick_fork));
+		pthread_mutex_unlock(&((forks[index]).fkmtx));
 		return (0);
 	}
-	forks[index] = 1;
-	pthread_mutex_unlock(&(philone->rule->pick_fork));
+	(forks[index]).fkuse = 1;
+	pthread_mutex_unlock(&((forks[index]).fkmtx));
 	ph_notice(philone, "has taken a fork");
 	return (1);
 }
@@ -38,30 +38,30 @@ int	ph_fork(t_phil *philone, int leftright)
 void	ph_eat(t_phil *philone)
 {
 	unsigned int	index;
-	unsigned int	*forks;
+	t_fork			*forks;
 	struct timeval	eattime;
 
-	index = philone->index;
 	forks = philone->rule->forks;
+	index = ((philone->index) + 1) % philone->rule->num_of_phil;
 	while (!(ph_fork(philone, 1)))
 		;
 	while (!(ph_fork(philone, 0)))
 		;
 	if (endmutexcheck(philone->rule))
 		return ;
+	ph_notice(philone, "is eating");
 	pthread_mutex_lock(&(philone->eatmutex));
 	(philone->eatnum)++;
 	gettimeofday(&(philone->eat), 0);
 	eattime = philone->eat;
 	pthread_mutex_unlock(&(philone->eatmutex));
-	ph_notice(philone, "is eating");
 	napping(philone->rule->time_to_eat, eattime, philone);
-	pthread_mutex_lock(&(philone->rule->pick_fork));
-	forks[(index + 1) % philone->rule->num_of_phil] = 0;
-	pthread_mutex_unlock(&(philone->rule->pick_fork));
-	pthread_mutex_lock(&(philone->rule->pick_fork));
-	forks[index] = 0;
-	pthread_mutex_unlock(&(philone->rule->pick_fork));
+	pthread_mutex_lock(&((forks[index]).fkmtx));
+	(forks[index]).fkuse = 0;
+	pthread_mutex_unlock(&((forks[index]).fkmtx));
+	pthread_mutex_lock(&((forks[philone->index]).fkmtx));
+	(forks[philone->index]).fkuse = 0;
+	pthread_mutex_unlock(&((forks[philone->index]).fkmtx));
 }
 
 void	ph_sleep(t_phil *philone)
