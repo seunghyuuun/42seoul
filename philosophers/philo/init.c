@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 15:59:25 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/10/05 18:59:15 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:11:32 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	philinit(t_phil **philist, t_rule *rule)
 	i = 0;
 	while (i < rule->num_of_phil)
 	{
+		memset((void *)(&((*philist)[i])), 0, sizeof(t_phil));
 		((*philist)[i]).index = i;
 		((*philist)[i]).rule = rule;
 		((*philist)[i]).eatnum = 0;

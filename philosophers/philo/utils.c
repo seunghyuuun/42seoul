@@ -6,7 +6,7 @@
 /*   By: seunghy2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:13:41 by seunghy2          #+#    #+#             */
-/*   Updated: 2023/10/05 15:50:10 by seunghy2         ###   ########.fr       */
+/*   Updated: 2023/10/19 16:41:12 by seunghy2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,19 @@ unsigned int	timegap(struct timeval start, struct timeval present)
 void	napping(unsigned int sleep, struct timeval start, t_phil *philone)
 {
 	unsigned int	gap;
-	unsigned int	tmp;
+	unsigned int	rest;
 	struct timeval	present;
 
 	gap = 0;
 	while (!(endmutexcheck(philone->rule)) && gap < sleep)
 	{
-		tmp = (sleep - gap) / 3;
-		if (tmp > 1)
-			usleep(tmp * 1000);
+		rest = sleep - gap;
+		if (rest > 100)
+			usleep(60000);
+		else if (rest > 10)
+			usleep(6000);
+		else if (sleep - gap > 1)
+			usleep(1000);
 		else
 			usleep(300);
 		gettimeofday(&present, 0);
